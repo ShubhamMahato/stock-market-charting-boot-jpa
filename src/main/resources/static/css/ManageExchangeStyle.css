@@ -1,0 +1,211 @@
+
+
+
+html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+}
+
+body {
+      font-family: "Helvetica Neue",sans-serif;
+      font-weight: lighter;
+}
+
+header {
+      width: 100%;
+      height: 30vh;
+      background-size: cover;
+	  
+}
+.logo {
+      line-height: 60px;
+      position: fixed;
+      float: left;
+      margin: 16px 46px;
+      color: black;
+      font-weight: bold;
+      font-size: 20px;
+      letter-spacing: 2px;
+}
+
+nav {
+      position: fixed;
+      width: 100%;
+      box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+}
+
+nav ul {
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 60px;
+      list-style: none;
+      background: rgba(0, 0, 0, 0);
+      overflow: hidden;
+      color: #fff;
+      padding: 0;
+      text-align: right;
+      margin: 0;
+      padding-right: 40px;
+      transition: 1s;
+}
+
+nav.black ul {
+      background: white;
+}
+
+nav ul li {
+      display: inline-block;
+      padding: 16px 40px;
+}
+
+nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-size: 16px;
+}
+nav ul li p {
+      text-decoration: none;
+      color: black;
+      font-size: 16px;
+}
+.menu-icon {
+      line-height: 60px;
+      width: 100%;
+      background: white;
+      text-align: right;
+      box-sizing: border-box;
+      padding: 15px 24px;
+      cursor: pointer;
+      color: black;
+      display: none;
+}
+#sidebar {
+      display: none;
+    margin-top: 15vh;
+    min-width: 250px;
+    max-width: 250px;
+    background: #ffff;
+    color: #fff;
+    transition: all 0.3s;
+	z-index: 9999;
+	 background: #7386D5;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    /* top right corner of the sidebar */
+    top: 10px;
+    right: 10px;
+}
+
+#sidebarA{
+	font-size:12px;
+	text-align:left;
+}
+@media(max-width: 786px) {
+
+      .logo 
+      {
+            position: fixed;
+            top: 0;
+            margin-top: 5px;
+            margin-left: 70px;
+      }
+
+      #header1 ul 
+      {
+            max-height: 0px;
+      }
+      .menu-icon 
+      {
+            margin-top: 5px;
+            display: block;
+            text-align: left;
+      }
+      #sidebar 
+      {
+             display: block;
+             margin-left: -250px;
+      }
+      #sidebar.active 
+      {
+             margin-left: 0;
+      }
+
+		#tablee{
+	margin-top:100px;
+	}
+
+	
+	
+	
+	
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		 text-align:right;
+		
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 30px;
+		white-space: nowrap;
+		position:absolute;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Company Name"; }
+	td:nth-of-type(2):before { content: "CEO"; }
+	td:nth-of-type(3):before { content: "Breif"; }
+	td:nth-of-type(4):before { content: "Turnover"; }
+	td:nth-of-type(5):before { content: "Stock Exchange"; }
+	td:nth-of-type(6):before { content: "Stock Code"; }
+
+
+}
+
+
+#container h3{
+text-align:center;
+}
+
+
+#pid{
+	font-size:20px;
+	padding-top:5px;
+}
