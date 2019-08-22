@@ -10,7 +10,7 @@ public interface CompanyDao extends  JpaRepository<Company,Integer>
 {
 	public Company findByCompanyName(String name);
 	
-		
+	public Company findByCompanyCode(String companyCode);	
 	
 	
 }

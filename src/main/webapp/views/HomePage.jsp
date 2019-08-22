@@ -28,9 +28,9 @@
         			});
         		});
 	</script>
-		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 <script type="text/javascript">
-window.onload = function() {
+window.onload = function canvasfunction() {
  
 var dps = [[]];
 var chart = new CanvasJS.Chart("chartContainer", {
@@ -40,7 +40,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		text: "Company Data"
 	},
 	axisX: {
-		valueFormatString: "MMM"
+		  title: "timeline",
+		  intervalType: "day"
 	},
 	axisY: {
 		title: "Price (in billion INR)",
@@ -48,8 +49,9 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "line",
-		yValueFormatString: "#,##0\"%\"",
-		indexLabel: "{label} - {y}",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "#,##0 °C",
 		dataPoints: dps[0]
 	}]
 });
@@ -69,12 +71,14 @@ var yValue;
 </c:forEach> 
  
 chart.render();
- 
+
 }
+
 </script>
 
+
 </head>
-<body>
+<body >
 
 	 <nav id="sidebar">
              <div id="dismiss">
@@ -125,12 +129,10 @@ chart.render();
 
       <script type="text/javascript">
       $(document).ready(function() {
-
         $('#dismiss').on('click', function () {
             // hide sidebar
             $('#sidebar').removeClass('active');
         });
-
             $(".menu-icon").on("click", function() {
                   /*$("nav ul").toggleClass("showing");*/
             $('#sidebar').toggleClass('active');
@@ -143,7 +145,7 @@ chart.render();
 	 <div id="container">
 	  <div class="row">
 		<div id ="left-import-cell" class="col-sm-12 col-md-6">
-		<div id="chartContainer" style="height: 250px; width: 100%;"></div>
+		<div id="chartContainer" style="height: 250px; width: 100%;"> </div>
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	
 			</div>
@@ -197,3 +199,7 @@ chart.render();
 	  
 </body>
 </html>
+
+
+
+

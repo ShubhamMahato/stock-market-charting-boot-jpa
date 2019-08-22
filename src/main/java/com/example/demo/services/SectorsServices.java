@@ -6,42 +6,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.StockDao;
-import com.example.demo.entity.Stock;
+import com.example.demo.dao.SectorsDao;
+import com.example.demo.entity.Sectors;
 
 @Service
-public class StockService 
+public class SectorsServices 
 {
 	@Autowired
-	public StockDao stockdao;
-	
-	
+	private SectorsDao sectorsdao;
 	public static List<String>al=new ArrayList<String>();
-	public Stock save(Stock save)
+	public Sectors save(Sectors sectors)
 	{
-		return stockdao.save(save);
+		return sectorsdao.save(sectors);
+	}
+	public List<Sectors> findAll()
+	{
+		return sectorsdao.findAll();
+	}
+	public Sectors findByCompanySectorName(String companySectorName)
+	{
+		return sectorsdao.findByCompanySectorName(companySectorName);
 	}
 	
-	public List<Stock> findAll()
+	public String SectorsList()
 	{
-		
-		return stockdao.findAll();
-		
-	}
-	public Stock findByStockName(String stockExchangeCompany)
-	{
-		return stockdao.findByStockName(stockExchangeCompany);
-	}
-	
-	public String StockList()
-	{
-		List<Stock>al1=stockdao.findAll();
+		List<Sectors>al1=sectorsdao.findAll();
 		for(int i=0;i<al1.size();i++)
 		{
-			if(!(al.contains(al1.get(i).getStockName())))
+			if(!(al.contains(al1.get(i).getCompanySectorName())))
 					{
 			
-				al.add(al1.get(i).getStockName());
+				al.add(al1.get(i).getCompanySectorName());
 		
 					}
 		}
@@ -59,6 +54,4 @@ public class StockService
 		  String s= sb.toString();
 		return s;
 	}
-	
-	
 }

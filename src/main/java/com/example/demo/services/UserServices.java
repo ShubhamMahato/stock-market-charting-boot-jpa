@@ -27,4 +27,8 @@ public class UserServices
 	public User findByConfirmationToken(String confirmationToken){
 		return userdao.findByConfirmationToken(confirmationToken);
 	}
+	public User findByUserName(String userName)
+	{
+		return userdao.findByUserName(userName);
+	}
 }

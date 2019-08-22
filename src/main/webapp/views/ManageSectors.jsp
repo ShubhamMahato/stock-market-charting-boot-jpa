@@ -37,7 +37,7 @@ font-family:sans-serif;
                     <a id="sidebarA" href="openManageCompany">Manage Company</a>
                 </li>
                 <li>
-                    <p id="sidebarA"  href="openSector">Sectors</p>
+                    <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
                 </li>
                 <li>
                     <a id="sidebarA" href="IPO Planned.html">IPO Details</a>
@@ -105,40 +105,32 @@ font-family:sans-serif;
 	<hr/>
 	
 	
-	<form:form action="saveStock"  method="POST"  modelAttribute="stock">
-	<div class="container-fluid"> <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+	<form:form action="saveSectors"  method="POST"  modelAttribute="sector">
+	<div class="container-fluid"> 
             <div class="row" class="i-am-centered">
                 <div style="text-align:right" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                   <p id="pid">Stock Name:</p>
-					<p id="pid">Contract Address:</p>
-					<p id="pid">Brief:</p>
-					<p id="pid">Remarks:</p>
-				   
-				   
+                <p id="pid">Sector Name:</p>
+                 <p id="pid">Brief:</p>
                 </div>
-            <div style="text-align:left" class=col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				
-				<form:input value="BSE" path="stockName" type="text" name="sname" placeholder="StockName"/><br><br>
-				<form:input value="Delhi" path="contactAddress"  type="text" name="conadd" placeholder="Stock Exchange Name"/><br><br>
-				<form:input value="Heha" path="brief" type="text" name="sBrief" placeholder="Breif"/><br><br>
-				<form:input value="Not Good but god" path="remarks"  type="text" name="sremarks" placeholder="Remarks"/><br><br>
+            <div style="text-align:left" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+           		 <form:input path="companySectorName"  type="text" id="cid" name="cid" placeholder="Sector Name"/><br><br>
+           		 
+				<form:input path="sectorsBrief"  type="text" id="ccode" name="ccode" placeholder="Brief"/><br><br>
+			
 				<br><br>
-				<input type="submit" value="Submit"/>
+				<input type="submit" name="action" value="save or update" />
+				
+				<p style="color:red">${msg}</p>
+				
                 </div>
                 
+                
                  <div style="text-align:center" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				
-				 <form:errors path="stockName" cssClass="error"></form:errors>
+                 <form:errors path="companySectorName" cssClass="error"></form:errors>
 				 <br><br>
-				 
-				 <form:errors path="contactAddress" cssClass="error"></form:errors>
-				 <br><br>
-				 
-				 <form:errors path="brief" cssClass="error"></form:errors>
+				<form:errors path="sectorsBrief" cssClass="error"></form:errors>
 				 <br><br>
 				
-				 <form:errors path="remarks" cssClass="error"></form:errors>
-				 <br><br>
                 </div>
             </div>
         </div>
@@ -151,19 +143,15 @@ font-family:sans-serif;
 	<table class="table table-hover table-dark">
   <thead>
     <tr>
-      <th scope="col">Stock Name</th>
-      <th scope="col">Contact Address</th>
-      <th scope="col">Breif</th>
-	  <th scope="col">Remarks</th>
+      <th scope="col">sectorName</th>
+      <th scope="col">Brief</th>
     </tr>
   </thead>
   <tbody>
   <j:forEach var="c" items="${list}">
     <tr>
-      	 <td>${c.stockName}</td>
-     	 <td>${c.contactAddress}</td>
-     	 <td>${c.brief}</td>
-     	 <td>${c.remarks}</td>
+      	 <td>${c.companySectorName}</td>
+      	 <td>${c.sectorsBrief}</td>
     </tr>
     </j:forEach>
   </tbody>

@@ -11,12 +11,15 @@ public class Company
 	public Company(){}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="companyid")
+	private Integer companyId; 
+	
+
 	@Column(name="company_code")
-	private int companyCode;
+	private String companyCode;
 	
 	@NotBlank
-	@NotNull
 	@Column(name="company_Name")
 	private String companyName;
 	
@@ -36,129 +39,117 @@ public class Company
 	
 	@NotNull
 	@Column(name="sector_id")
-	private int sectorId;
+	private String sectorId;
+	
+	@NotNull
+	@Column(name="stockExchangeId")
+	private String stockExchangeId;
 	
 	@NotBlank
 	@NotNull
 	@Column(name="breifwriteup")
 	private String breifWriteUp;
+
+	@OneToOne
+	@JoinColumn(name="stockId")
+	private Stock stockExchangeCompany;
 	
-	@NotNull
-	@Column(name="stock_Code")
-	private int stockCode;
+	@ManyToOne
+	@JoinColumn(name="companySector")
+	private Sectors sector;
+	
+	public Integer getCompanyId() {
+		return companyId;
+	}
 
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 
 	
 
-
-	public int getCompanyCode() {
+	public String getCompanyCode() {
 		return companyCode;
 	}
 
-
-	public void setCompanyCode(int companyCode) {
+	public void setCompanyCode(String companyCode) {
 		this.companyCode = companyCode;
 	}
-
 
 	public String getCompanyName() {
 		return companyName;
 	}
 
-
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-
-
-	
 
 	public int getTurnover() {
 		return turnover;
 	}
 
-
 	public void setTurnover(int turnover) {
 		this.turnover = turnover;
 	}
-
 
 	public String getCeo() {
 		return ceo;
 	}
 
-
 	public void setCeo(String ceo) {
 		this.ceo = ceo;
 	}
-
 
 	public String getBoardOfDirectors() {
 		return boardOfDirectors;
 	}
 
-
 	public void setBoardOfDirectors(String boardOfDirectors) {
 		this.boardOfDirectors = boardOfDirectors;
 	}
 
-
 	
-
-
-	public Integer getSectorId() {
+	public String getSectorId() {
 		return sectorId;
 	}
 
-
-	public void setSectorId(Integer sectorId) {
+	public void setSectorId(String sectorId) {
 		this.sectorId = sectorId;
 	}
-
 
 	public String getBreifWriteUp() {
 		return breifWriteUp;
 	}
 
-
 	public void setBreifWriteUp(String breifWriteUp) {
 		this.breifWriteUp = breifWriteUp;
 	}
 
+	public Stock getStockExchangeCompany() {
+		return stockExchangeCompany;
+	}
 
+	public void setStockExchangeCompany(Stock stockExchangeCompany) {
+		this.stockExchangeCompany = stockExchangeCompany;
+	}
+
+	public String getStockExchangeId() {
+		return stockExchangeId;
+	}
+
+	public void setStockExchangeId(String stockExchangeId) {
+		this.stockExchangeId = stockExchangeId;
+	}
+
+	public Sectors getSector() {
+		return sector;
+	}
+
+	public void setSector(Sectors sector) {
+		this.sector = sector;
+	}
 	
-
-
-	public int getStockCode() {
-		return stockCode;
-	}
-
-
-	public void setStockCode(int stockCode) {
-		this.stockCode = stockCode;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Company [companyCode=" + companyCode + ", companyName=" + companyName + ", turnover=" + turnover
-				+ ", ceo=" + ceo + ", boardOfDirectors=" + boardOfDirectors + ", sectorId=" + sectorId
-				+ ", breifWriteUp=" + breifWriteUp + ", stockCode=" + stockCode + "]";
-	}
-
-
-	public Company(int companyCode, String companyName, int turnover, String ceo, String boardOfDirectors,
-			int sectorId, String breifWriteUp, int stockCode) {
-		super();
-		this.companyCode = companyCode;
-		this.companyName = companyName;
-		this.turnover = turnover;
-		this.ceo = ceo;
-		this.boardOfDirectors = boardOfDirectors;
-		this.sectorId = sectorId;
-		this.breifWriteUp = breifWriteUp;
-		this.stockCode = stockCode;
-	}
+	
 	
 	
 	

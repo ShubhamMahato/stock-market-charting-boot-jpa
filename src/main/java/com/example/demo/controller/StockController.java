@@ -26,6 +26,7 @@ public class StockController
 	{
 		ModelAndView mv = new ModelAndView();
 		List<Stock>list=stockservice.findAll();
+		
 		mv.addObject("list",list);
 		mv.addObject("stock",new Stock());
 		mv.setViewName("ManageExchnage");

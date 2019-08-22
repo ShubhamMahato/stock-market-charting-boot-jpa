@@ -37,7 +37,7 @@ public class HomeController
 	public org.springframework.web.servlet.ModelAndView index(ModelMap modelMap)
 	{
 		
-		 String sDate1="2017-03-25"; Date date1=null; 
+		/* String sDate1="2017-03-25"; Date date1=null; 
 		  try 
 		  { 
 			  date1 = new  SimpleDateFormat("yyyy-MM-dd").parse(sDate1); 
@@ -46,34 +46,23 @@ public class HomeController
 		  { 
 			   e.printStackTrace();
 		} 
-		  java.sql.Date sqlDate= new java.sql.Date(date1.getTime());
+		  java.sql.Date sqlDate= new java.sql.Date(date1.getTime());*/
 		  
 		  
 
-		  List<String> al= companyServices.CompanyList(); 
-		  StringBuffer sb = new StringBuffer(); 
-		  sb.append("["); 
-		  for(int i=0;i<al.size(); i++)
-		  { 
-			  sb.append("\"").append(al.get(i)).append("\""); 
-			  if(i+1 <al.size())
-			  { 
-				  sb.append(","); 
-			  } 
-		  } 
-		  sb.append("]");
-		  String s= sb.toString();
+		  String s= companyServices.CompanyList(); 
+		 
 		  
 		 ////////////////////////////
 		 
-		 List<List<Map<Object, Object>>> canvasjsDataList =
-		  canvasjsChartService.getCanvasjsChartData( sqlDate);
+		/* List<List<Map<Object, Object>>> canvasjsDataList =
+		  canvasjsChartService.getFullCanvasjsChartData( );*/
 		  
 		  
 		  
 		  ModelAndView mv = new ModelAndView(); mv.addObject("stock", new Stock());
 		 List<Stock> stockList=stockservice.findAll();
-		 modelMap.addAttribute("dataPointsList", canvasjsDataList);
+		// modelMap.addAttribute("dataPointsList", canvasjsDataList);
 		 mv.addObject("stockList",stockList);
 		  
 		modelMap.addAttribute("StringList",s);

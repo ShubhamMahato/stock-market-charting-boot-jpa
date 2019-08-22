@@ -12,6 +12,24 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/css/ManageCompanyStyle.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+	<script type="text/javascript">
+	$( function() {
+        			$( "#stockcode" ).autocomplete({
+        				source:${StringList},
+        				minLength:1
+        			});
+        		});
+	</script>
+	<script type="text/javascript">
+	$( function() {
+        			$( "#sector" ).autocomplete({
+        				source:${StringList1},
+        				minLength:1
+        			});
+        		});
+	</script>
 	<style>
 .error{
 color:red;
@@ -19,12 +37,7 @@ font-family:sans-serif;
 }
 </style>
 
-
-<script>
-function myFunction() {
-  document.getElementById("myBtn").disabled = true;
-}
-</script>
+   
 
 </head>
 <body>
@@ -42,7 +55,7 @@ function myFunction() {
                     <a id="sidebarA" href="ImportData.html">Import Data</a>
                 </li>
                 <li>
-                    <p id="sidebarA">Manage Company</p>
+                   <a id="sidebarA" href="openSector">Sectors</a>
                 </li>
                 <li>
                     <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
@@ -70,8 +83,8 @@ function myFunction() {
                         <div class="menu">
 
                               <ul>
-                                    <li><a href="ImportData.html">Import Data</a></li>
-                                    <li><p>Manage Company</p></li>
+                                    <li><a href="importdata">Import Data</a></li>
+                                    <li>   <a href="openSector">Sectors</a></li>
                                     <li><a href="openStockExchange">Manage Exchange</a></li>
                                     <li><a href="IPO Planned.html">IPO Details</a></li>
 									<li><button type="button" class="btn btn-dark">Logout</button> </li>
@@ -118,6 +131,7 @@ function myFunction() {
 	<div class="container-fluid"> 
             <div class="row" class="i-am-centered">
                 <div style="text-align:right" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <p id="pid">CompanyId:</p>
                  <p id="pid">CompanyCode:</p>
                    <p id="pid">CompanyName:</p>
 					<p id="pid">Ceo :</p>
@@ -128,6 +142,8 @@ function myFunction() {
 					<p id="pid">Stock Code:</p>
                 </div>
             <div style="text-align:left" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+           		 <form:input path="companyId"  type="text" id="cid" name="cid" placeholder="id will be assigned"/><br><br>
+           		 
 				<form:input path="companyCode"  type="text" id="ccode" name="ccode" placeholder="id will be assigned"/><br><br>
 				
 				<form:input path="companyName" value="Microsoft" type="text" id="cname" name="cname" placeholder="CompanyName"/><br><br>
@@ -147,7 +163,7 @@ function myFunction() {
 				<form:input  path="sectorId"  type="text" value="3" name="sector" id="sector" placeholder="Sector"/>
 				 <br><br>
 				 
-				<form:input  path="stockCode"  type="text" value="3" name="Stock_Code" id="stockcode" placeholder="Stock Code"/>
+				<form:input  path="stockExchangeId"  type="text" value="3" name="stockExchangeCompany" id="stockcode" placeholder="Stock Code"/>
 				 <br><br>
 				<br><br>
 				<input type="submit" name="action" value="save or update" />
@@ -158,6 +174,8 @@ function myFunction() {
                 
                 
                  <div style="text-align:center" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                 <form:errors path="companyId" cssClass="error"></form:errors>
+				 <br><br>
 				<form:errors path="companyCode" cssClass="error"></form:errors>
 				 <br><br>
 				
@@ -179,7 +197,7 @@ function myFunction() {
 				 <form:errors path="sectorId" cssClass="error"></form:errors>
 				 <br><br>
 				 
-				 <form:errors path="stockCode" cssClass="error"></form:errors>
+				 <form:errors path="stockExchangeId" cssClass="error"></form:errors>
 				 <br><br>
                 </div>
             </div>
@@ -192,6 +210,7 @@ function myFunction() {
 	<table id="myTable" class="table table-hover table-dark">
   <thead>
     <tr>
+     <th scope="col">CompanyId</th>
        <th scope="col">Company Code</th>
       <th scope="col">Company Name</th>
       <th scope="col">Turnover</th>
@@ -205,6 +224,7 @@ function myFunction() {
   <tbody>
   <j:forEach var="c" items="${list}">
     <tr>
+    <td>${c.companyId}</td>
      	<td>${c.companyCode}</td>
       	 <td>${c.companyName}</td>
      	 <td>${c.turnover}</td>
@@ -212,7 +232,7 @@ function myFunction() {
      	 <td>${c.boardOfDirectors}</td>
      	 <td>${c.breifWriteUp}</td>
      	 <td>${c.sectorId}</td>
-     	 <td>${c.stockCode}</td>
+     	 <td>${c.stockExchangeId}</td>
     </tr>
     </j:forEach>
 	
@@ -226,14 +246,15 @@ function myFunction() {
                 {
                     table.rows[i].onclick = function()
                     {
-                    	document.getElementById("ccode").value = this.cells[0].innerHTML;
-                    	document.getElementById("cname").value = this.cells[1].innerHTML;
-                    	document.getElementById("ceoname").value = this.cells[3].innerHTML;
-                    	document.getElementById("bodname").value = this.cells[4].innerHTML;
-                    	document.getElementById("turnover").value = this.cells[2].innerHTML;
-                    	document.getElementById("brief").value = this.cells[5].innerHTML;
-                    	document.getElementById("sector").value = this.cells[6].innerHTML;
-                    	document.getElementById("stockcode").value = this.cells[7].innerHTML;
+                    	document.getElementById("cid").value = this.cells[0].innerHTML;
+                    	document.getElementById("ccode").value = this.cells[1].innerHTML;
+                    	document.getElementById("cname").value = this.cells[2].innerHTML;
+                    	document.getElementById("ceoname").value = this.cells[4].innerHTML;
+                    	document.getElementById("bodname").value = this.cells[5].innerHTML;
+                    	document.getElementById("turnover").value = this.cells[3].innerHTML;
+                    	document.getElementById("brief").value = this.cells[6].innerHTML;
+                    	document.getElementById("sector").value = this.cells[7].innerHTML;
+                    	document.getElementById("stockcode").value = this.cells[8].innerHTML;
                     	
                     };
                 }

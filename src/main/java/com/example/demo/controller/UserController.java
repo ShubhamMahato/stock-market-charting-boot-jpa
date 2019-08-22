@@ -2,12 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.User;
+import com.example.demo.services.CompanyService;
 import com.example.demo.services.EmailService;
 import com.example.demo.services.UserServices;
 
@@ -27,7 +25,9 @@ public class UserController {
 	@Autowired
 	
 	private UserServices userService;
-
+	
+	@Autowired
+	private CompanyService companyServices;
    
 	@RequestMapping("/openUserLogin")
 	public ModelAndView demo()
@@ -65,15 +65,27 @@ public class UserController {
 	
 	
 	@RequestMapping(value="userlogin", method = RequestMethod.GET)
-	public ModelAndView loginAuth(Model model,@RequestParam("userName") String userName, @RequestParam("password") String password,Model  modell) 
+	public ModelAndView loginAuth(Model model,@RequestParam("userName") String userName, @RequestParam("password") String password,Model  modell,HttpServletRequest request) 
 	{  
 		User user = userService.findByUserNameAndPassword(userName, password);
 		if(user!=null&&user.isConfirmed())
 		{
 			ModelAndView mc=new ModelAndView();
-			
-			mc.setViewName("NewFile");
+			mc.addObject("userName",userName);
+			request.getSession().setAttribute("userName",userName);
+			String al=companyServices.CompanyList();
+			mc.addObject("companyList",al );
+			mc.setViewName("User");
 			return mc; 
+		}
+		else if(!(user.isConfirmed()))
+		{
+			ModelAndView mc=new ModelAndView();
+			modell.addAttribute("line","Please Confirm You email");
+			mc.addObject("user",new User());
+			mc.setViewName("UserLoginoreRegister");
+			
+			return mc;
 		}
 		else
 		{
@@ -112,6 +124,24 @@ public class UserController {
 		 userData.setConfirmed(true);
 		 userService.save(userData);
 		 return new ModelAndView("NewFile","message","Email is confirmed! Login");
+	 }
+	 
+	 
+	 
+	 
+	 
+	 
+	 @RequestMapping("/updateuser")
+	 public ModelAndView updateUser(HttpServletRequest request)
+	 {
+		 ModelAndView mv=new ModelAndView();
+		 mv.addObject("user",new User());
+		 String userName=(String)request.getSession().getAttribute("userName");
+		 User user=userService.findByUserName(userName);
+		 mv.addObject("userName",user);
+		 mv.setViewName("UpdateUser");
+		 return mv;
+		 
 	 }
 	
 	

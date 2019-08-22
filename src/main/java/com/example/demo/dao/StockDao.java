@@ -8,6 +8,5 @@ import com.example.demo.entity.Stock;
 public interface StockDao extends JpaRepository<Stock, Integer>
 {
 
-	
-	
+	public Stock findByStockName(String stockExchangeCompany);
 }
