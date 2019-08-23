@@ -105,6 +105,7 @@ public class AdminController
 	}
 	
 	
+
 	@RequestMapping("/ab")
 	public void importData(@RequestParam("file") MultipartFile fileAddress) throws IOException, InvalidFormatException {
 		System.out.println("Mubarka");
@@ -175,6 +176,12 @@ public class AdminController
 			//double objectTime=XSSFrow.getCell(4).getNumericCellValue();
 			
 			
+			
+			/* DataFormatter formatter0 = new DataFormatter(); 
+			 Cell cell0 = XSSFrow.getCell(0);
+			 String ss0 = formatter0.formatCellValue(cell0); */
+			
+			//////////time column//////////////////////
 			 DataFormatter formatter = new DataFormatter(); 
 			 Cell cell = XSSFrow.getCell(4);
 			 String ss = formatter.formatCellValue(cell); 
@@ -184,7 +191,8 @@ public class AdminController
 			 
 			  
 			
-			String data = dateToString(objectDate)+objectCompanyCode;
+			String data = dateToString(objectDate)+objectCompanyCode+ss;
+			//System.out.println(data+"hhh");
 			if (checkDublicateData(dublicateDataList, data)&&(checkCompany(objectCompanyCode)))
 			{
 				
@@ -200,22 +208,34 @@ public class AdminController
 			}
 		} else if (index == 2) {
 			
-			String objectCompanyCode = HSSFrow.getCell(0).getStringCellValue();
+			//String objectCompanyCode = HSSFrow.getCell(0).getStringCellValue();
 			int objectStockExchange = (int) HSSFrow.getCell(1).getNumericCellValue();
 			float objectCurrentPrice = (float) HSSFrow.getCell(2).getNumericCellValue();
 			Date objectDate = HSSFrow.getCell(3).getDateCellValue();
-			String objectTime=HSSFrow.getCell(4).getStringCellValue();
+			//String objectTime=HSSFrow.getCell(4).getStringCellValue();
 			
-			String data = dateToString(objectDate)+objectCompanyCode;
-			if (checkDublicateData(dublicateDataList, data)&&checkCompany(objectCompanyCode))
+			
+			
+			 DataFormatter formatter0 = new DataFormatter(); 
+			 Cell cell0 = XSSFrow.getCell(0);
+			 String ss0 = formatter0.formatCellValue(cell0); 
+			
+			//////////time column//////////////////////
+			 DataFormatter formatter = new DataFormatter(); 
+			 Cell cell = XSSFrow.getCell(4);
+			 String ss = formatter.formatCellValue(cell); 
+			 Time t=java.sql.Time.valueOf(ss);
+			
+			String data = dateToString(objectDate)+ss0;
+			if (checkDublicateData(dublicateDataList, data)&&checkCompany(ss0))
 			{
 				dateRange(objectDate);
-				stockPriceDetails.setCompanyCode(objectCompanyCode);
+				stockPriceDetails.setCompanyCode(ss0);
 				stockPriceDetails.setStockExchange(objectStockExchange);
 				stockPriceDetails.setCurrentPrice(objectCurrentPrice);
 				stockPriceDetails.setDate(objectDate);
 				
-				//stockPriceDetails.setTime(objectTime);	
+				stockPriceDetails.setTime(t);	
 			}else {
 				return null;
 			}
@@ -255,8 +275,9 @@ public class AdminController
 
 	
 	public static boolean checkDublicateData(ArrayList<String> dublicateDataList,String data) {
-		if(dublicateDataList.contains(data))
+		if(dublicateDataList.contains(data)) {
 			return false;
+			}
 		else
 			dublicateDataList.add(data);
 		return true;
@@ -264,7 +285,7 @@ public class AdminController
 	}
 
 	public String dateToString(Date date) { 
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");  
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
 		String strDate = dateFormat.format(date); 
 		return strDate;
 	}

@@ -27,7 +27,7 @@ public class StockPriceDetail
 	
 	private float currentPrice;
 	
-	@Column(name="date", unique =true)
+	@Column(name="date")
 	private Date date;
 	
 	private Time time;
@@ -81,6 +81,7 @@ public class StockPriceDetail
 	}
 
 	public void setDate(Date date) {
+		
 		this.date = date;
 	}
 

@@ -1,10 +1,10 @@
 package com.example.demo.dao;
 
-/*import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.StockPrice;
+import com.example.demo.entity.StockPriceDetail;
 
-public interface StockPriceDao extends JpaRepository<StockPrice,Integer>
+public interface StockPriceDao extends JpaRepository<StockPriceDetail,Integer>
 {
-	public StockPrice findByCompanyCode(StockPrice stockprice);
-}*/
+	public StockPriceDetail findByCompanyCode(StockPriceDetail stockprice);
+}

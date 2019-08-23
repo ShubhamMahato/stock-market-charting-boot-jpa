@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.User;
 import com.example.demo.services.CompanyService;
 import com.example.demo.services.EmailService;
+import com.example.demo.services.StockPriceServices;
 import com.example.demo.services.UserServices;
 
 @Controller 
@@ -28,12 +30,17 @@ public class UserController {
 	
 	@Autowired
 	private CompanyService companyServices;
+	
+
+	@Autowired         
+	private StockPriceServices stockpriceservice;
    
 	@RequestMapping("/openUserLogin")
 	public ModelAndView demo()
 	{
 		ModelAndView mv=new ModelAndView();
 		mv.addObject("user",new User());
+		
 		mv.setViewName("UserLoginoreRegister");
 		return mv;
 		
@@ -75,6 +82,8 @@ public class UserController {
 			request.getSession().setAttribute("userName",userName);
 			String al=companyServices.CompanyList();
 			mc.addObject("companyList",al );
+			List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getFullCanvasjsChartData( );
+			mc.addObject("dataPointsList", canvasjsDataList);
 			mc.setViewName("User");
 			return mc; 
 		}

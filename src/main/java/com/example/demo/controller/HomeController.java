@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.entity.Stock;
 import com.example.demo.services.CanvasjsChartService;
 import com.example.demo.services.CompanyService;
+import com.example.demo.services.StockPriceServices;
 import com.example.demo.services.StockService;
 
 @Controller
@@ -30,6 +31,9 @@ public class HomeController
 	}
 	@Autowired         
 	private StockService stockservice;
+	
+	@Autowired         
+	private StockPriceServices stockpriceservice;
 	
 	
 	
@@ -55,14 +59,12 @@ public class HomeController
 		  
 		 ////////////////////////////
 		 
-		/* List<List<Map<Object, Object>>> canvasjsDataList =
-		  canvasjsChartService.getFullCanvasjsChartData( );*/
-		  
-		  
+		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getFullCanvasjsChartData( );
+		 
 		  
 		  ModelAndView mv = new ModelAndView(); mv.addObject("stock", new Stock());
 		 List<Stock> stockList=stockservice.findAll();
-		// modelMap.addAttribute("dataPointsList", canvasjsDataList);
+		 modelMap.addAttribute("dataPointsList", canvasjsDataList);
 		 mv.addObject("stockList",stockList);
 		  
 		modelMap.addAttribute("StringList",s);
