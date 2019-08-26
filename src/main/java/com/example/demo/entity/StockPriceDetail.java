@@ -18,20 +18,12 @@ import javax.persistence.Table;
 @Table(name="stock_price")
 
 
-	@NamedNativeQueries({
-	        @NamedNativeQuery(
-	                name    =   "getAllPriceByDates",
-	                		
-	                query   =   "select price,date " +
-	                            "form stock_price " +
-	                            " where date>=?1 and date<=?2",
-	                            resultClass=StockPriceDetail.class
-	        )
-	})
+
 public class StockPriceDetail 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	
 	private int stockPriceID;
 	

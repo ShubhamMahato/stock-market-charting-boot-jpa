@@ -108,7 +108,7 @@ chartType.addEventListener( "change",  function(){
  <div class="container" style="padding:10px;">
 
   <div class="row" >
-  <form:form  action="getUserByDateAndCompany"  method="GET" >>
+  <form action="getUserByDateAndCompany"  method="GET"  commandName="stockprice">
     <div class="col-sm">
     	
 	
@@ -119,12 +119,12 @@ chartType.addEventListener( "change",  function(){
     </div>
      
     <div class="col-sm">
-    <!-- <input type="text" id="hello" name="companyc"/><br>-->
-      		<input type="date" name=startd/><br>
-      		<input type="date" name=endd/><br>
+     <input type="text" id="hello" name="companyc"/><br>
+      		<input type="date"name="startd" /><br>
+      		<input type="date" name="endd"/><br>
       		<input type="submit" value="Submit"/>
     </div>
-   </form:form>
+   </form>
   </div>
 </div>
 

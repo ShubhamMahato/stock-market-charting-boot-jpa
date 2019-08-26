@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -41,8 +44,8 @@ public class Stock
 	@Column(name="remarks")
 	private String remarks;
 	
-	@OneToOne(mappedBy = "stockExchangeCompany")
-	private Company company;
+	@OneToMany(mappedBy = "stockExchangeCompany")
+	private List<Company> company;
 
 
 	public int getStockId() {
@@ -92,6 +95,17 @@ public class Stock
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+	
+	
+
+	public List<Company> getCompany() {
+		return company;
+	}
+
+
+	public void setCompany(List<Company> company) {
+		this.company = company;
 	}
 
 

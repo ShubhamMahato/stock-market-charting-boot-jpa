@@ -50,7 +50,7 @@ public class Company
 	@Column(name="breifwriteup")
 	private String breifWriteUp;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="stockId")
 	private Stock stockExchangeCompany;
 	
@@ -125,6 +125,7 @@ public class Company
 		this.breifWriteUp = breifWriteUp;
 	}
 
+	
 	public Stock getStockExchangeCompany() {
 		return stockExchangeCompany;
 	}

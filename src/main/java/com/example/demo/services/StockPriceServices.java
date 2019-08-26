@@ -9,7 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
+import java.util.TreeMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -104,20 +107,77 @@ public class StockPriceServices
 		return list;
 	}
 	
-	
-	public Map<Integer,Object> findByDate( String startdate, String enddate)
+
+	public  List<List<Map<Object, Object>>> findByDate( String companycode, String startdate, String enddate)
 	{
+		
+		
+		List<List<Map<Object,Object>>> list = new ArrayList<List<Map<Object,Object>>>();
+		 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 	
-		  List<Object[]> result = stockpricedao.findByDate(startdate, enddate);
-	       Map<Integer,Object> map = null;
+		  List<Object[]> result = stockpricedao.getbydate(companycode, startdate, enddate);
+		  Map<Object,Object> chart = null;
+	       Map<Float,Object> map = null;
+	     
 	       if(result != null && !result.isEmpty()){
-	          map = new HashMap<Integer,Object>();
+	          map = new HashMap<Float,Object>();
 	          for (Object[] object : result) {
-	            map.put(((Integer)object[0]),object[1]);
+	            map.put(((Float)object[0]),object[1]);
 	          }
 	       }
-	         System.out.println(map);
-	         return map;
+	      
+	       ArrayList<Object>y=new ArrayList<Object>();
+	       ArrayList<Object>x=new ArrayList<Object>();
+	       ArrayList<Object>time=new ArrayList<Object>();
+	       
+	    
+	       
+	       for(Float i: map.keySet())
+	       {
+	           y.add(i);
+	       }
+	       for(Object i: map.values())
+	       {
+	           x.add(i);
+	       }
+	       
+	       if(result != null && !result.isEmpty()){
+		          map = new HashMap<Float,Object>();
+		          for (Object[] object : result) {
+		            map.put(((Float)object[0]),object[2]);
+		          }
+		       }
+	       
+	       for(Object i: map.values())
+	       {
+	           time.add(i);
+	       }
+	       for(int i=0;i<x.size();i++)
+	       {
+	    	   System.out.println(x.get(i)+"   "+time.get(i)+"   "+y.get(i));
+	       }
+	       System.out.println();
+	       for(int i=0;i<x.size();i++)
+	       {
+	    	   
+	    	   long unixTime = 0;
+		        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30")); 
+		        try {
+		        	System.out.println(x.get(i));
+		           unixTime = dateFormat.parse(x.get(i)+""+time.get(i)).getTime();
+		            //unixTime = unixTime / 1000;
+		           System.out.println(unixTime);
+		        } catch (ParseException e) {
+		            e.printStackTrace();
+		        }
+		        chart = new HashMap<Object,Object>(); 
+		        chart.put("x", unixTime); 
+		        chart.put("y", y.get(i));
+				dataPoints1.add(chart);
+	       }
+	       list.add(dataPoints1);
+	       return list;
 	}
 	
 	

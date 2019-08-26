@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.entity.StockPriceDetail;
 import com.example.demo.entity.User;
 import com.example.demo.services.CompanyService;
 import com.example.demo.services.EmailService;
@@ -156,10 +158,13 @@ public class UserController {
 	
 	 @RequestMapping(value="getUserByDateAndCompany",method=RequestMethod.GET)
 	 
-	 public ModelAndView getbydate(/*@RequestParam("companyc")String companyCode,*/ @RequestParam("startd")String startdate, @RequestParam("endd")String enddate)
+	 public ModelAndView getbydate(@RequestParam("companyc")String companyCode, @RequestParam("startd")String startdate, @RequestParam("endd")String enddate)
 	 {
 		 ModelAndView mv=new ModelAndView();
-		 Map<Integer,Object> map=stockpriceservice.findByDate( startdate, enddate);
+		 mv.addObject("stockprice",new StockPriceDetail());
+		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.findByDate(companyCode,startdate, enddate);
+		mv.addObject("dataPointsList", canvasjsDataList);
+	
 		 mv.setViewName("User");
 		 return mv;
 
