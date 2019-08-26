@@ -154,5 +154,15 @@ public class UserController {
 	 }
 	
 	
+	 @RequestMapping(value="getUserByDateAndCompany",method=RequestMethod.GET)
+	 
+	 public ModelAndView getbydate(/*@RequestParam("companyc")String companyCode,*/ @RequestParam("startd")String startdate, @RequestParam("endd")String enddate)
+	 {
+		 ModelAndView mv=new ModelAndView();
+		 Map<Integer,Object> map=stockpriceservice.findByDate( startdate, enddate);
+		 mv.setViewName("User");
+		 return mv;
+
+	 }
 }
 

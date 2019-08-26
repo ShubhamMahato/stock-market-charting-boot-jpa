@@ -10,10 +10,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="stock_price")
+
+
+	@NamedNativeQueries({
+	        @NamedNativeQuery(
+	                name    =   "getAllPriceByDates",
+	                		
+	                query   =   "select price,date " +
+	                            "form stock_price " +
+	                            " where date>=?1 and date<=?2",
+	                            resultClass=StockPriceDetail.class
+	        )
+	})
 public class StockPriceDetail 
 {
 	@Id
@@ -31,7 +45,15 @@ public class StockPriceDetail
 	private Date date;
 	
 	private Time time;
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	//******************************************************
 	//					Mapping

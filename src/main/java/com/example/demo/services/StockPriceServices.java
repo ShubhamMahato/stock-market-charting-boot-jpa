@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import com.example.demo.dao.StockPriceDao;
 import com.example.demo.entity.StockPriceDetail;
@@ -40,12 +41,7 @@ public class StockPriceServices
 		List<StockPriceDetail>al=stockpricedao.findAll();
 		for(int i=0;i<al.size();i++)
 		{
-			if(!(pricelist.contains(al.get(i).getCurrentPrice())))
-					{
-			
-				pricelist.add(al.get(i).getCurrentPrice());
-		
-					}
+			pricelist.add(al.get(i).getCurrentPrice());
 		}
 		return pricelist;
 	}
@@ -57,12 +53,7 @@ public class StockPriceServices
 		List<StockPriceDetail>al=stockpricedao.findAll();
 		for(int i=0;i<al.size();i++)
 		{
-			if(!(datelist.contains(al.get(i).getDate())))
-					{
-			
-				datelist.add(al.get(i).getDate());
-		
-					}
+			datelist.add(al.get(i).getDate());
 		}
 		return datelist;
 	}
@@ -74,16 +65,11 @@ public class StockPriceServices
 		List<StockPriceDetail>al=stockpricedao.findAll();
 		for(int i=0;i<al.size();i++)
 		{
-			if(!(timelist.contains(al.get(i).getTime())))
-					{
-			
-				timelist.add(al.get(i).getTime());
-		
-					}
+					
+			timelist.add(al.get(i).getTime());
 		}
 		return timelist;
 	}
-	
 	
 	
 	
@@ -98,14 +84,13 @@ public class StockPriceServices
 		 List<Time>timee=getTimeList();
 		
 		
-		
-		for(int i=0;i<timee.size();i++)
+		for(int i=0;i<date.size();i++)
 		{
-		 long unixTime = 0;
+		   long unixTime = 0;
 	        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30")); 
 	        try {
-	            unixTime = dateFormat.parse(date.get(i)+" "+timee.get(i)).getTime();
-	            //unixTime = unixTime / 1000;
+	           unixTime = dateFormat.parse(date.get(i)+" "+timee.get(i)).getTime();
+	           // unixTime = unixTime / 1000;
 	        } catch (ParseException e) {
 	            e.printStackTrace();
 	        }
@@ -120,6 +105,26 @@ public class StockPriceServices
 	}
 	
 	
+	public Map<Integer,Object> findByDate( String startdate, String enddate)
+	{
 	
+		  List<Object[]> result = stockpricedao.findByDate(startdate, enddate);
+	       Map<Integer,Object> map = null;
+	       if(result != null && !result.isEmpty()){
+	          map = new HashMap<Integer,Object>();
+	          for (Object[] object : result) {
+	            map.put(((Integer)object[0]),object[1]);
+	          }
+	       }
+	         System.out.println(map);
+	         return map;
+	}
+	
+	
+	
+
 	
 }
+
+
+
