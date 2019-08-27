@@ -35,6 +35,7 @@ var dps = [[]];
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "dark1", "dark2"
 	animationEnabled: true,
+	zoomEnabled: true, 
 	title: {
 		text: "Company Data"
 	},
@@ -44,20 +45,20 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	axisY: {
 		title: "Price (in billion INR)",
-		suffix: " °C"
+		suffix: " INR"
 	},
 	data: [{
 		type: "line",
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
-		yValueFormatString: "#,##0 °C",
+		yValueFormatString: "#,##0 INR",
 		dataPoints: dps[0]
 	}]
 });
  
 var xValue;
 var yValue;
- 
+
 <c:forEach items="${dataPointsList}" var="dataPoints" varStatus="loop">	
 	<c:forEach items="${dataPoints}" var="dataPoint">
 		xValue = parseInt("${dataPoint.x}");
@@ -82,7 +83,6 @@ chartType.addEventListener( "change",  function(){
 }
 
 </script>
-
 </head>
 <body>
 	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
@@ -100,34 +100,66 @@ chartType.addEventListener( "change",  function(){
     <option value="bar">Bar</option>
     <option value="pie">Pie</option>
     <option value="doughnut">Doughnut</option>
+    <!-- <option value="spline">spline</option>
+    <option value="splineArea">splineArea</option>
+    <option value="stepLine">stepLine</option>
+    <option value="scatter">scatter</option> -->
   </select>  
 </div>
 
 <hr>
 
- <div class="container" style="padding:10px;">
+ <div class="container" style="width:70%;padding:10px;">
 
-  <div class="row" >
+  <div class="col-sm-4 col-lg-4 col-md-4" >
+
   <form action="getUserByDateAndCompany"  method="GET"  commandName="stockprice">
-    <div class="col-sm">
+  
+  <p style="color:red;">Add Company separated by for multiple companies</p>
+    <div class="col-sm-3 col-lg-3 col-md-3" style="text-align:left;">
     	
 	
-    	<h5>From Date</h5>
-		<h5>To Date</h5>
+    	<h4  style="padding:8px;">Company Name</h4>
+    	<h4  style="padding:8px;" >From Date</h4>
+		<h4  style="padding:8px;">To Date</h4>
 		
 		
     </div>
      
-    <div class="col-sm">
-     <input type="text" id="hello" name="companyc"/><br>
-      		<input type="date"name="startd" /><br>
-      		<input type="date" name="endd"/><br>
-      		<input type="submit" value="Submit"/>
+    <div class="col-sm-3 col-lg-3 col-md-3">
+     <input style="margin:10px;" type="text" id="hello" name="companyc"/><br>
+      		<input style="margin:10px;" type="date"name="startd" /><br>
+      		<input style="margin:10px;" type="date" name="endd"/><br>
+      		<input style="margin:10px;" type="submit" value="Submit"/>
     </div>
    </form>
-  </div>
+
 </div>
 
+ <div class="col-sm-4 col-lg-4 col-md-4" >
+<p style="color:red;">Add Sectors separated by for multiple companies</p>
+  <form action="getUserBySectorsAndCompany"  method="GET"  commandName="stockprice">
+    <div class="col-sm-3 col-lg-3 col-md-3">
+    	
+		<h4 style="padding:8px;">Sector Name</h4>
+    	<h4 style="padding:8px;" >From Date</h4>
+		<h4 style="padding:8px;">To Date</h4>
+		
+		
+    </div>
+     
+    <div class="col-sm-3 col-lg-3 col-md-3">
+     <input  style="margin:10px;" type="text" id="hello" name="sectorc"/><br>
+      		<input  style="margin:10px;"  type="date"name="sstartd" /><br>
+      		<input style="margin:10px;" type="date" name="sendd"/><br>
+      		<input  style="margin:10px;" type="submit" value="Submit"/>
+    </div>
+   </form>
+
+</div>
+
+
+</div>
 
 </body>
 </html> 

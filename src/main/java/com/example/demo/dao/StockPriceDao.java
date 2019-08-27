@@ -17,7 +17,9 @@ public interface StockPriceDao extends JpaRepository<StockPriceDetail,Integer>
 	@Query(value="select current_price,date,time from stock_price where company_code=:companyCode and date>:startd and date<:endd order by date asc",nativeQuery = true)
 	public List<Object[]> getbydate(@Param("companyCode") String companycode,@Param("startd") String startdate,@Param("endd") String enddate);
 	
+	//public StockPriceDetail findByCompanyCode(String compc);
 	
+	public List<StockPriceDetail> findByCompanyCode(String compc);
 	
 	
 }

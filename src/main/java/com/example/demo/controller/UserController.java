@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.entity.Company;
+import com.example.demo.entity.Sectors;
 import com.example.demo.entity.StockPriceDetail;
 import com.example.demo.entity.User;
+import com.example.demo.services.CanvasjsChartServiceImpl;
 import com.example.demo.services.CompanyService;
 import com.example.demo.services.EmailService;
+import com.example.demo.services.SectorsServices;
 import com.example.demo.services.StockPriceServices;
 import com.example.demo.services.UserServices;
 
@@ -32,6 +37,13 @@ public class UserController {
 	
 	@Autowired
 	private CompanyService companyServices;
+	
+
+	@Autowired
+	private CanvasjsChartServiceImpl canvasServices;
+	
+	@Autowired
+	private SectorsServices sectorsservices;
 	
 
 	@Autowired         
@@ -161,11 +173,36 @@ public class UserController {
 	 public ModelAndView getbydate(@RequestParam("companyc")String companyCode, @RequestParam("startd")String startdate, @RequestParam("endd")String enddate)
 	 {
 		 ModelAndView mv=new ModelAndView();
-		 mv.addObject("stockprice",new StockPriceDetail());
+		
+		 
+		
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.findByDate(companyCode,startdate, enddate);
-		mv.addObject("dataPointsList", canvasjsDataList);
-	
+		 mv.addObject("dataPointsList", canvasjsDataList);
 		 mv.setViewName("User");
+		 return mv;
+
+	 }
+	 
+@RequestMapping(value="getUserBySectorsAndCompany",method=RequestMethod.GET)
+	 
+	 public ModelAndView getbydateandsectors(@RequestParam("sectorc")String ssectors, @RequestParam("sstartd")String startdate, @RequestParam("sendd")String enddate)
+	 {
+		
+		 ModelAndView mv=new ModelAndView();
+		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getSectorCanvasjsChartData(ssectors,startdate, enddate);
+		 if(sectorsservices.findByCompanySectorName(ssectors)!=null)
+		 {
+			
+			 mv.addObject("dataPointsList", canvasjsDataList);
+			 mv.setViewName("User");
+			
+		}
+		 else
+		 {
+			 mv.addObject("message","No company under this stock name");
+			 mv.setViewName("NewFile");
+		 }
+		 
 		 return mv;
 
 	 }

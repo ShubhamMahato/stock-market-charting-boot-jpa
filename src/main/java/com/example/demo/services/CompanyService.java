@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.dao.CompanyDao;
 import com.example.demo.entity.Company;
+import com.example.demo.entity.Sectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
@@ -66,4 +67,16 @@ public class CompanyService
 	{
 		return companydao.findByCompanyCode(companyCode);
 	}
+	
+	
+	public List<Company> findBySector(Sectors sec)
+	{
+		return companydao.findBySector(sec);
+	}
+	
+	public Company findBySectorId(String secname)
+	{
+		return companydao.findBySectorId(secname);
+	}
+	
 }
