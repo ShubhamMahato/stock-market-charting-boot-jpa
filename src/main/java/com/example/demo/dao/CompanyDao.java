@@ -18,4 +18,6 @@ public interface CompanyDao extends  JpaRepository<Company,Integer>
 	public List<Company> findBySector(Sectors sec);
 	
 	public Company findBySectorId(String secname);
+	
+	public Company findByCompanyCodeAndSector(String companycode,Sectors sector);
 }

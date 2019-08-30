@@ -86,13 +86,13 @@ public class CanvasjsChartDaoImpl implements CanvasjsChartDao {
 		map = new HashMap<Object,Object>(); map.put("x", 1509474600000L); map.put("y", 12);dataPoints1.add(map);
 		map = new HashMap<Object,Object>(); map.put("x", 1512066600000L); map.put("y", 9);dataPoints1.add(map);
 		
-		List<Stock> y=entityManager.createNativeQuery("select stock_price.current_price from stock_price ").getResultList();
+		List<Stock> y=entityManager.createNativeQuery("select stock_demo.price from stock_demo ").getResultList();
 		//List<Object[]> y=query.getResultList();
 		
-		List<Stock> dat=entityManager.createNativeQuery("select `stock_price`.`date`from stock_price ").getResultList();
+		List<Stock> dat=entityManager.createNativeQuery("select `stock_demo`.`date`from stock_demo ").getResultList();
 		//List<Object[]>dat=query1.getResultList();
 		
-		List<Stock> tim=entityManager.createNativeQuery("select `stock_price`.`time` from stock_price ").getResultList();
+		List<Stock> tim=entityManager.createNativeQuery("select `stock_demo`.`time` from stock_demo ").getResultList();
 		//List<Object[]>tim=query2.getResultList();
 		for(int i=0;i<tim.size();i++)
 		{

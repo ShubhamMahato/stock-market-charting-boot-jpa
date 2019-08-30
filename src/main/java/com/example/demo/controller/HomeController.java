@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.entity.Company;
 import com.example.demo.entity.Stock;
 import com.example.demo.services.CanvasjsChartService;
 import com.example.demo.services.CompanyService;
@@ -62,7 +66,8 @@ public class HomeController
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getFullCanvasjsChartData( );
 		 
 		  
-		  ModelAndView mv = new ModelAndView(); mv.addObject("stock", new Stock());
+		  ModelAndView mv = new ModelAndView(); 
+		  mv.addObject("stock", new Stock());
 		 List<Stock> stockList=stockservice.findAll();
 		 modelMap.addAttribute("dataPointsList", canvasjsDataList);
 		 mv.addObject("stockList",stockList);
@@ -75,6 +80,24 @@ public class HomeController
 	}
 	
 	
-	
+	@RequestMapping(value="getCompany",method=RequestMethod.GET)
+
+	public ModelAndView getbycompay(@RequestParam("hello")String company)
+	{
+		
+		ModelAndView mv = new ModelAndView();
+		List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getFullCanvasjsChartData( );
+		Company comp=companyServices.findByCompanyName(company);
+		String s= companyServices.CompanyList(); 
+		mv.addObject("companylist",comp);
+	    mv.addObject("stock", new Stock());
+	    List<Stock> stockList=stockservice.findAll();
+	 	mv.addObject("dataPointsList", canvasjsDataList);
+	 	mv.addObject("stockList",stockList);
+	    mv.addObject("StringList",s);
+	    mv.setViewName("HomePage");
+		return mv;
+		
+	}
 	
 }

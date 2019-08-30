@@ -31,7 +31,7 @@ document.write(${dataPointsList}});
 <script type="text/javascript">
 window.onload = function canvasfunction() {
  
-var dps = [[]];
+var dps = ${str};
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "dark1", "dark2"
 	animationEnabled: true,
@@ -47,28 +47,50 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		title: "Price (in billion INR)",
 		suffix: " INR"
 	},
-	data: [{
+	data: [
+{
+		
 		type: "line",
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
 		dataPoints: dps[0]
+	},
+{
+		
+		type: "line",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "#,##0 INR",
+		dataPoints: dps[1]
+	},
+{
+		
+		type: "line",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "#,##0 INR",
+		dataPoints: dps[2]
 	}]
 });
  
 var xValue;
 var yValue;
-
 <c:forEach items="${dataPointsList}" var="dataPoints" varStatus="loop">	
+
 	<c:forEach items="${dataPoints}" var="dataPoint">
+	
 		xValue = parseInt("${dataPoint.x}");
 		yValue = parseFloat("${dataPoint.y}");
+		
 		dps[parseInt("${loop.index}")].push({
+			
 			x : xValue,
 			y : yValue
-		});		
+		});	
 	</c:forEach>	
 </c:forEach> 
+
  
 chart.render();
 
@@ -80,8 +102,12 @@ chartType.addEventListener( "change",  function(){
   chart.render();
 });
 
+
 }
 
+</script>
+<script type="text/javascript">
+document.write("${datatypeset}");
 </script>
 </head>
 <body>
@@ -107,26 +133,29 @@ chartType.addEventListener( "change",  function(){
   </select>  
 </div>
 
+
+
+
 <hr>
 
- <div class="container" style="width:70%;padding:10px;">
+ <div class="container" style="width:100%;padding:10px;">
 
   <div class="col-sm-4 col-lg-4 col-md-4" >
 
   <form action="getUserByDateAndCompany"  method="GET"  commandName="stockprice">
   
   <p style="color:red;">Add Company separated by for multiple companies</p>
-    <div class="col-sm-3 col-lg-3 col-md-3" style="text-align:left;">
+    <div class="col-sm-2 col-lg-2 col-md-2" style="text-align:left;">
     	
 	
-    	<h4  style="padding:8px;">Company Name</h4>
-    	<h4  style="padding:8px;" >From Date</h4>
-		<h4  style="padding:8px;">To Date</h4>
+    	<p  >Company Code</p>
+    	<p   >From Date</p>
+		<p  >To Date</p>
 		
 		
     </div>
      
-    <div class="col-sm-3 col-lg-3 col-md-3">
+    <div class="col-sm-2 col-lg-2 col-md-2">
      <input style="margin:10px;" type="text" id="hello" name="companyc"/><br>
       		<input style="margin:10px;" type="date"name="startd" /><br>
       		<input style="margin:10px;" type="date" name="endd"/><br>
@@ -137,18 +166,18 @@ chartType.addEventListener( "change",  function(){
 </div>
 
  <div class="col-sm-4 col-lg-4 col-md-4" >
-<p style="color:red;">Add Sectors separated by for multiple companies</p>
-  <form action="getUserBySectorsAndCompany"  method="GET"  commandName="stockprice">
-    <div class="col-sm-3 col-lg-3 col-md-3">
+<p style="color:red;">Add Sectors separated by for multiple Sectors</p>
+  <form action="getUserBySectors"  method="GET"  commandName="stockprice">
+    <div class="col-sm-2 col-lg-2 col-md-2">
     	
-		<h4 style="padding:8px;">Sector Name</h4>
-    	<h4 style="padding:8px;" >From Date</h4>
-		<h4 style="padding:8px;">To Date</h4>
+		<p >Sector Name</p>
+    	<p  >From Date</p>
+		<p >To Date</p>
 		
 		
     </div>
      
-    <div class="col-sm-3 col-lg-3 col-md-3">
+    <div class="col-sm-2 col-lg-2 col-md-2">
      <input  style="margin:10px;" type="text" id="hello" name="sectorc"/><br>
       		<input  style="margin:10px;"  type="date"name="sstartd" /><br>
       		<input style="margin:10px;" type="date" name="sendd"/><br>
@@ -158,7 +187,28 @@ chartType.addEventListener( "change",  function(){
 
 </div>
 
+ <div class="col-sm-4 col-lg-4 col-md-4" >
+<p style="color:red;">Add Sectors separated by for multiple companies</p>
+  <form action="getUserBySectorsAndCompany"  method="GET"  commandName="stockprice">
+    <div class="col-sm-2 col-lg-2 col-md-2">
+    	<p >Company Code</p>
+		<p >Sector Name</p>
+    	<p  >From Date</p>
+		<p >To Date</p>
+		
+		
+    </div>
+     
+    <div class="col-sm-2 col-lg-2 col-md-2">
+    <input  style="margin:10px;" type="text" id="hello" name="companyc"/><br>
+     <input  style="margin:10px;" type="text" id="hello" name="sectorc"/><br>
+      		<input  style="margin:10px;"  type="date"name="sstartd" /><br>
+      		<input style="margin:10px;" type="date" name="sendd"/><br>
+      		<input  style="margin:10px;" type="submit" value="Submit"/>
+    </div>
+   </form>
 
+</div>
 </div>
 
 </body>

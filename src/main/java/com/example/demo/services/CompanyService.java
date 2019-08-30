@@ -79,4 +79,9 @@ public class CompanyService
 		return companydao.findBySectorId(secname);
 	}
 	
+	public Company findByCompanyCodeAndSector(String companycode,Sectors sector)
+	{
+		return companydao.findByCompanyCodeAndSector(companycode, sector);
+	}
+	
 }

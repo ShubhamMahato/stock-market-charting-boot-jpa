@@ -66,6 +66,13 @@ public class UserController {
 	@RequestMapping("/saveUser")
 	public ModelAndView adduser(@Valid @ModelAttribute("user") User user,BindingResult result,HttpServletRequest request)
 	{
+		if(result.hasErrors())
+		{
+			ModelAndView mv=new ModelAndView();
+			mv.setViewName("UserLoginoreRegister");
+			System.out.println("inthe result error    lmpgpdfsjngpifrngpinergpm");
+			return mv;
+		}
 		if(!result.hasErrors()) {
 		if(!existingUser(user)) {
 			user.setConfirmationToken(UUID.randomUUID().toString());
@@ -89,7 +96,15 @@ public class UserController {
 	public ModelAndView loginAuth(Model model,@RequestParam("userName") String userName, @RequestParam("password") String password,Model  modell,HttpServletRequest request) 
 	{  
 		User user = userService.findByUserNameAndPassword(userName, password);
-		if(user!=null&&user.isConfirmed())
+		if(userService.findByUserNameAndPassword(userName, password)==null)
+		{
+			ModelAndView mc=new ModelAndView();
+			modell.addAttribute("message","Username and Password are incorrect");
+			mc.addObject("user",new User());
+			mc.setViewName("UserLoginoreRegister");
+			return mc;
+		}
+		else if(user!=null&&user.isConfirmed())
 		{
 			ModelAndView mc=new ModelAndView();
 			mc.addObject("userName",userName);
@@ -101,10 +116,11 @@ public class UserController {
 			mc.setViewName("User");
 			return mc; 
 		}
+		
 		else if(!(user.isConfirmed()))
 		{
 			ModelAndView mc=new ModelAndView();
-			modell.addAttribute("line","Please Confirm You email");
+			modell.addAttribute("message","Please Confirm You email");
 			mc.addObject("user",new User());
 			mc.setViewName("UserLoginoreRegister");
 			
@@ -113,20 +129,23 @@ public class UserController {
 		else
 		{
 			ModelAndView mc=new ModelAndView();
-			modell.addAttribute("line","Username and Password are incorrect");
-			mc.addObject("user",new User());
-			mc.setViewName("UserLoginoreRegister");
-			
+			mc.addObject("message","Please check your credentials");
+			mc.setViewName("NewFile");
 			return mc;
 		}
 		
 	}
 	
 	 public Boolean existingUser(User user) {
-		if(userService.findByUserNameAndEmailAndPhoneNumber(user.getUserName(), user.getEmail(), user.getPhoneNumber())!=null)
+		if(userService.findByUserNameOrEmailOrPhoneNumber(user.getUserName(), user.getEmail(), user.getPhoneNumber())!=null)
+		{
 				return true;
+		}
 		else
+		{
 			return false;
+	 
+		}
 	 }
 	 
 	 public void userRegistrationEmail(User userData,String appUrl) {
@@ -174,37 +193,147 @@ public class UserController {
 	 {
 		 ModelAndView mv=new ModelAndView();
 		
-		 
-		
+		 String s="";
+		 String datatypeset="[";
+		 String line="line";
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.findByDate(companyCode,startdate, enddate);
 		 mv.addObject("dataPointsList", canvasjsDataList);
+
+		 if(canvasjsDataList.size()==1)
+		 {
+			 s="[[]]";
+		 }
+		 else
+			 
+		 {
+			 s="[";
+			 for(int i=0;i<canvasjsDataList.size();i++)
+			 {
+				 if(i==0)
+				 {
+					 s=s+"[]";
+				 }
+				 else
+				 {
+					 s=s+",[]";
+				 }
+			 }
+			 s=s+"]";
+		 }
+		 mv.addObject("str", s);
+		 for(int i=0;i<canvasjsDataList.size();i++)
+		 {
+			 
+			 if(i==canvasjsDataList.size()-1)
+			 {
+				 System.out.println(i+"int first the loop");
+				 datatypeset=datatypeset+"{type: \"line\",xValueType: \"dateTime\",xValueFormatString: \"MMM\",yValueFormatString: \"#,##0 INR\",dataPoints: dps[0]}";
+			 }
+			 else
+			 {
+				 System.out.println(i+"int seconmd the loop");
+				 datatypeset=datatypeset+"{type: \"line\",xValueType: \"dateTime\",xValueFormatString: \"MMM\",yValueFormatString: \"#,##0 INR\",dataPoints: dps[0]},";
+			 }
+		}
+		 datatypeset=datatypeset+"]";
+		 String gg=datatypeset;
+		 mv.addObject("datatypeset", gg);
+
+		 System.out.println(s);
+
+		 System.out.println(datatypeset);
 		 mv.setViewName("User");
 		 return mv;
 
 	 }
 	 
-@RequestMapping(value="getUserBySectorsAndCompany",method=RequestMethod.GET)
+@RequestMapping(value="getUserBySectors",method=RequestMethod.GET)
 	 
 	 public ModelAndView getbydateandsectors(@RequestParam("sectorc")String ssectors, @RequestParam("sstartd")String startdate, @RequestParam("sendd")String enddate)
 	 {
 		
 		 ModelAndView mv=new ModelAndView();
+		 String s="";
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getSectorCanvasjsChartData(ssectors,startdate, enddate);
-		 if(sectorsservices.findByCompanySectorName(ssectors)!=null)
+		 mv.addObject("dataPointsList", canvasjsDataList);
+		
+		 if(canvasjsDataList.size()==1)
 		 {
-			
-			 mv.addObject("dataPointsList", canvasjsDataList);
-			 mv.setViewName("User");
-			
-		}
-		 else
-		 {
-			 mv.addObject("message","No company under this stock name");
-			 mv.setViewName("NewFile");
+			 s="[[]]";
 		 }
-		 
-		 return mv;
+		 else
+			 
+		 {
+			 s="[";
+			 for(int i=0;i<canvasjsDataList.size();i++)
+			 {
+				 if(i==0)
+				 {
+					 s=s+"[]";
+				 }
+				 else
+				 {
+					 s=s+",[]";
+				 }
+			 }
+			 s=s+"]";
+		 }
+		 System.out.println(s);
+		 mv.addObject("str", s);
+		 mv.setViewName("User");
+		return mv;
 
 	 }
+
+
+@RequestMapping(value="getUserBySectorsAndCompany",method=RequestMethod.GET)
+
+public ModelAndView getbydateandsectors(@RequestParam("companyc")String company ,@RequestParam("sectorc")String ssectors, @RequestParam("sstartd")String startdate, @RequestParam("sendd")String enddate)
+{
+	
+	 ModelAndView mv=new ModelAndView();
+	 
+	 Sectors sec=sectorsservices.findByCompanySectorName(ssectors);
+	 if(companyServices.findByCompanyCodeAndSector(company, sec)!=null)
+	 {
+		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getSectorCanvasjsChartData(ssectors,startdate, enddate);
+		 mv.addObject("dataPointsList", canvasjsDataList);
+		 String s="";
+
+		 if(canvasjsDataList.size()==1)
+		 {
+			 s="[[]]";
+		 }
+		 else
+			 
+		 {
+			 s="[";
+			 for(int i=0;i<canvasjsDataList.size();i++)
+			 {
+				 if(i==0)
+				 {
+					 s=s+"[]";
+				 }
+				 else
+				 {
+					 s=s+",[]";
+				 }
+			 }
+			 s=s+"]";
+		 }
+		 mv.addObject("str", s);
+		 mv.setViewName("User");
+		
+	}
+	 else
+	 {
+		 mv.addObject("message","No company under this stock name");
+		 mv.setViewName("NewFile");
+	 }
+	 
+	 return mv;
+
+}
+
 }
 

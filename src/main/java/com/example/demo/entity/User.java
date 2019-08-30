@@ -17,7 +17,7 @@ public class User
 	
 	@NotBlank
 	@NotNull
-	@Column(unique=true,name="user_name")
+	@Column(unique = true,name="user_name")
 	private String userName;
 	
 	@NotBlank

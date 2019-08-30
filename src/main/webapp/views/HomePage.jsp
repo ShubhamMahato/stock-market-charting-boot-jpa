@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@ var dps = [[]];
 var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "light2", // "light1", "dark1", "dark2"
 	animationEnabled: true,
-	zoomEnabled: true, 
+	
 	title: {
 		text: "Company Data"
 	},
@@ -178,6 +179,7 @@ chart.render();
 			</div>
 			
 			<div class="row">
+			<form:form  action="getCompany"  method="GET" >
 				<div style="text-align:right;" class="col-sm-6 col-md-6 col-xs-6 col-lg-6">
 				<input type="text" id="hello" name="hello"/>
 	
@@ -186,12 +188,41 @@ chart.render();
 				<input type="submit" id="companysearch" value="Search"/>
 	
 			</div>
+			</form:form>
 			</div>
 			
-			
+			<br>
+			<br>
+			<br>
+			<br>
 	<div class="row">
 		<div style="text-align:right;" id ="left-import-cell" class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
-			</div>
+			<table style="border:2px solid black;" class="table table-hover table-dark">
+  				<thead>
+   					 <tr>
+				      <th scope="col">Company Code</th>
+				      <th scope="col">CompanyName</th>
+				      <th scope="col">Turnover</th>
+					  <th scope="col">ceo</th>
+					  
+					  <th scope="col">boardOfDirectors</th>
+				      <th scope="col">sectorId</th>
+				      <th scope="col">breifWriteUp</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td>${companylist.companyCode}</td>
+				      <td>${companylist.companyName}</td>
+				      <td>${companylist.turnover}</td>
+				      <td>${companylist.ceo}</td>
+				      <td>${companylist.boardOfDirectors}</td>
+				      <td>${companylist.sectorId}</td>
+				      <td>${companylist.breifWriteUp}</td>
+				    </tr>
+		  </tbody>
+		</table>
+		</div>
 			
 	</div>
 		</div>

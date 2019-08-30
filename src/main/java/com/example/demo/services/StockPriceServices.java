@@ -119,16 +119,17 @@ public class StockPriceServices
 
 	public  List<List<Map<Object, Object>>> findByDate( String companycode, String startdate, String enddate)
 	{
-		
+		  
 		
 		List<List<Map<Object,Object>>> list = new ArrayList<List<Map<Object,Object>>>();
-		 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
+		
 		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 		 String[] companyCode = companycode.split(",");
 		 for(int j=0;j<companyCode.length;j++)
 		 {
+			 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
 		  List<Object[]> result = stockpricedao.getbydate(companyCode[j], startdate, enddate);
-		 
+		
 		  Map<Object,Object> chart = null;
 	       Map<Long,Object> map = null;
 	     
@@ -145,7 +146,7 @@ public class StockPriceServices
 				        	DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
 				        	String output = outputFormatter.format(object[1]); 
 				        	String out = output.substring(0, 10); 
-				           unixTime = dateFormat.parse(out+""+(Time)object[2]).getTime();
+				           unixTime = dateFormat.parse(out+" "+(Time)object[2]).getTime();
 				            //unixTime = unixTime / 1000;
 				        } catch (ParseException e) {
 				            e.printStackTrace();
@@ -182,7 +183,7 @@ public class StockPriceServices
 				        	DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
 				        	String output = outputFormatter.format(object[1]); 
 				        	String out = output.substring(0, 10); 
-				           unixTime = dateFormat.parse(out+""+(Time)object[2]).getTime();
+				           unixTime = dateFormat.parse(out+" "+(Time)object[2]).getTime();
 				            //unixTime = unixTime / 1000;
 				        } catch (ParseException e) {
 				            e.printStackTrace();
@@ -210,12 +211,14 @@ public class StockPriceServices
 		        chart.put("y", y.get(i));
 				dataPoints1.add(chart);
 	       }
+	       list.add(dataPoints1);
 	  	 
 		 }
 	      
 	      
 		 }
-		 list.add(dataPoints1);
+		  
+		 System.out.println(list);
 	      
 	       return list;
 	}
@@ -246,21 +249,28 @@ public class StockPriceServices
 		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 		 Map<Object,Object> map = null;
 		 List<List<Map<Object,Object>>> list = new ArrayList<List<Map<Object,Object>>>();
-		 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
 		
-		List<Float>price=new ArrayList<Float>();
-		 List<Time>time=new ArrayList<Time>();
-		 List<Date>date=new ArrayList<Date>();
+		
+		
 		 String[] secc = ssectors.split(",");
 		 for(int k=0;k<secc.length;k++)
 		 {
+			 List<Float>price=new ArrayList<Float>();
+			 List<Time>time=new ArrayList<Time>();
+			 List<Date>date=new ArrayList<Date>();
+			 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
 		 if(sectorsservices.findByCompanySectorName(secc[k])!=null)
 		 {
+			
+			 
 			 Sectors sec=sectorsservices.findByCompanySectorName(secc[k]);
 			 List<Company> comp=companyServices.findBySector(sec);
+			
 			 for(int i=0;i<comp.size();i++)
 			 {
+				 
 				 String companycode=comp.get(i).getCompanyCode();
+				 System.out.println(companycode);
 				 List<StockPriceDetail> stockp=stockpriceservice.findByCompanyCode(companycode);
 				 for(int j=0;j<stockp.size();j++)
 				 {
@@ -296,15 +306,74 @@ public class StockPriceServices
 			map.put("y", price.get(i));
 			dataPoints1.add(map);
 			
+			
 		}
-		 }
 		list.add(dataPoints1);
+		 }
+		 
 		return list;
 	}
 	
 	
-	
+	////////////////////////////////////////////////
 
+	public List<List<Map<Object, Object>>> getDataByCompanyAndSector(String Company,String ssectors,String startdate, String enddate) {
+		
+		
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+		 Map<Object,Object> map = null;
+		 List<List<Map<Object,Object>>> list = new ArrayList<List<Map<Object,Object>>>();
+		 List<Map<Object,Object>> dataPoints1 = new ArrayList<Map<Object,Object>>();
+		 Sectors sec=sectorsservices.findByCompanySectorName(ssectors);
+		List<Float>price=new ArrayList<Float>();
+		 List<Time>time=new ArrayList<Time>();
+		 List<Date>date=new ArrayList<Date>();
+		 if(companyServices.findByCompanyCodeAndSector(Company, sec)!=null)
+		 {
+			
+			 Company comp=companyServices.findByCompanyCodeAndSector(Company, sec);
+			 
+				 String companycode=comp.getCompanyCode();
+				 List<StockPriceDetail> stockp=stockpriceservice.findByCompanyCode(companycode);
+				 for(int j=0;j<stockp.size();j++)
+				 {
+					 	price.add(stockp.get(j).getCurrentPrice());
+					 	time.add(stockp.get(j).getTime());
+					 	date.add(stockp.get(j).getDate());
+				 }
+			 
+		
+			
+		}
+		
+		
+	
+		
+		
+		
+		for(int i=0;i<date.size();i++)
+		{
+		   long unixTime = 0;
+	        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+5:30")); 
+	        try {
+	        	DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+	        	String output = outputFormatter.format(date.get(i)); 
+	        	String out = output.substring(0, 10); 
+	           unixTime = dateFormat.parse(out+" "+time.get(i)).getTime();
+	           // unixTime = unixTime / 1000;
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }
+	        map = new HashMap<Object,Object>(); 
+			map.put("x", unixTime); 
+			map.put("y", price.get(i));
+			dataPoints1.add(map);
+			
+		}
+		 
+		list.add(dataPoints1);
+		return list;
+	}
 	
 }
 

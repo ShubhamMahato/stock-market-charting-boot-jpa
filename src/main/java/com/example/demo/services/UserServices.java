@@ -21,8 +21,8 @@ public class UserServices
 	{
 		return userdao.findByUserNameAndPassword(userName, password);
 	}
-	public User findByUserNameAndEmailAndPhoneNumber(String userName,String email,String phoneNumber) {
-		return userdao.findByUserNameAndEmailAndPhoneNumber(userName, email, phoneNumber);
+	public User findByUserNameOrEmailOrPhoneNumber(String userName,String email,String phoneNumber) {
+		return userdao.findByUserNameOrEmailOrPhoneNumber(userName, email, phoneNumber);
 	}
 	public User findByConfirmationToken(String confirmationToken){
 		return userdao.findByConfirmationToken(confirmationToken);

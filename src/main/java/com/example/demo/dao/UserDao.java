@@ -8,7 +8,7 @@ import com.example.demo.entity.User;
 public interface UserDao extends JpaRepository<User, Integer>
 {
 	public User findByUserNameAndPassword(String userName,String password);
-	public User findByUserNameAndEmailAndPhoneNumber(String userName,String email,String phoneNumber);
+	public User findByUserNameOrEmailOrPhoneNumber(String userName,String email,String phoneNumber);
 	public User findByConfirmationToken(String confirmationToken);
 	public User findByUserName(String userName);
 	
