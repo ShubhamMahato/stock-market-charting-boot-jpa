@@ -19,13 +19,13 @@ import javax.validation.constraints.NotNull;
 public class Stock 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="stock_id")
 	private int stockId;
 	
 	@NotBlank
 	@NotNull
-	@Column(name="stock_name")
+	@Column(unique=true,name="stock_name")
 	private String stockName;
 	
 	@NotBlank

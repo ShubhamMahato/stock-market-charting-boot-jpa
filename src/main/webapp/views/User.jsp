@@ -9,7 +9,7 @@
 
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>HomePage</title>
+      <title>User</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -19,7 +19,7 @@
      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
 	<script type="text/javascript">
 	$( function() {
-        			$( "#hello" ).autocomplete({
+        			$( "#hell" ).autocomplete({
         				source:${companyList},
         				minLength:1
         			});
@@ -71,6 +71,22 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
 		dataPoints: dps[2]
+	},
+{
+		
+		type: "line",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "#,##0 INR",
+		dataPoints: dps[3]
+	},
+{
+		
+		type: "line",
+		xValueType: "dateTime",
+		xValueFormatString: "MMM",
+		yValueFormatString: "#,##0 INR",
+		dataPoints: dps[4]
 	}]
 });
  
@@ -99,6 +115,10 @@ chart.render();
 var chartType = document.getElementById('chartType');
 chartType.addEventListener( "change",  function(){
   chart.options.data[0].type = chartType.options[chartType.selectedIndex].value;
+  chart.options.data[1].type = chartType.options[chartType.selectedIndex].value;
+  chart.options.data[2].type = chartType.options[chartType.selectedIndex].value;
+  chart.options.data[3].type = chartType.options[chartType.selectedIndex].value;
+  chart.options.data[4].type = chartType.options[chartType.selectedIndex].value;
   chart.render();
 });
 
@@ -209,6 +229,53 @@ document.write("${datatypeset}");
    </form>
 
 </div>
+</div>
+
+
+<br>
+<br>
+<br>
+
+<div>
+	<h2>Search Ipo</h2>
+	<div class="row">
+			<form:form  action="getIpo"  method="GET" >
+				<div style="text-align:right;" class="col-sm-6 col-md-6 col-xs-6 col-lg-6">
+				<input type="text" id="hell" name="hell"/>
+	
+			</div>
+			<div style="text-align:left;"  class="col-sm-6 col-md-6 col-xs-6 col-lg-6">
+				<input type="submit" id="companysearch" value="Search"/>
+	
+			</div>
+			</form:form>
+			</div>
+			
+			<br>
+			<br>
+			<br>
+			<br>
+	<div class="row">
+		<div style="text-align:right;" id ="left-import-cell" class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+			 <table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">Exchange</th>
+      <th scope="col">Price per share</th>
+        <th scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="text-align:left;">
+      	 <td>${ipo.companyName}</td>
+      	 <td>${ipo.stockExchange}</td>
+      	  <td>${ipo.pricePerShare}</td>
+      	  <td>${ipo.remarks}</td>
+    </tr>
+  </tbody>
+</table>
+		</div>
 </div>
 
 </body>

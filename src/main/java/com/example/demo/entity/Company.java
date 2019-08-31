@@ -16,7 +16,7 @@ public class Company
 	private Integer companyId; 
 	
 
-	@Column(name="company_code")
+	@Column( name="company_code")
 	private String companyCode;
 	
 	@NotBlank
@@ -57,6 +57,9 @@ public class Company
 	@ManyToOne
 	@JoinColumn(name="companySector")
 	private Sectors sector;
+	
+	@OneToOne(mappedBy = "company")
+	private IpoDetails ipoDetails;
 	
 	public Integer getCompanyId() {
 		return companyId;
@@ -148,6 +151,14 @@ public class Company
 
 	public void setSector(Sectors sector) {
 		this.sector = sector;
+	}
+
+	public IpoDetails getIpoDetails() {
+		return ipoDetails;
+	}
+
+	public void setIpoDetails(IpoDetails ipoDetails) {
+		this.ipoDetails = ipoDetails;
 	}
 	
 	

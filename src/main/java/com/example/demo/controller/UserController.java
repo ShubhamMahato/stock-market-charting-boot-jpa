@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.example.demo.entity.Company;
+import com.example.demo.entity.IpoDetails;
 import com.example.demo.entity.Sectors;
-import com.example.demo.entity.StockPriceDetail;
 import com.example.demo.entity.User;
-import com.example.demo.services.CanvasjsChartServiceImpl;
 import com.example.demo.services.CompanyService;
 import com.example.demo.services.EmailService;
+import com.example.demo.services.IpoServices;
 import com.example.demo.services.SectorsServices;
 import com.example.demo.services.StockPriceServices;
 import com.example.demo.services.UserServices;
@@ -38,16 +35,15 @@ public class UserController {
 	@Autowired
 	private CompanyService companyServices;
 	
-
-	@Autowired
-	private CanvasjsChartServiceImpl canvasServices;
-	
 	@Autowired
 	private SectorsServices sectorsservices;
 	
 
 	@Autowired         
 	private StockPriceServices stockpriceservice;
+	
+	@Autowired
+	private IpoServices iposervices;
    
 	@RequestMapping("/openUserLogin")
 	public ModelAndView demo()
@@ -192,10 +188,10 @@ public class UserController {
 	 public ModelAndView getbydate(@RequestParam("companyc")String companyCode, @RequestParam("startd")String startdate, @RequestParam("endd")String enddate)
 	 {
 		 ModelAndView mv=new ModelAndView();
-		
+		 String al=companyServices.CompanyList();
+		mv.addObject("companyList",al );
 		 String s="";
 		 String datatypeset="[";
-		 String line="line";
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.findByDate(companyCode,startdate, enddate);
 		 mv.addObject("dataPointsList", canvasjsDataList);
 
@@ -253,6 +249,9 @@ public class UserController {
 	 {
 		
 		 ModelAndView mv=new ModelAndView();
+		 String al=companyServices.CompanyList();
+		mv.addObject("companyList",al );
+			
 		 String s="";
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getSectorCanvasjsChartData(ssectors,startdate, enddate);
 		 mv.addObject("dataPointsList", canvasjsDataList);
@@ -292,7 +291,9 @@ public ModelAndView getbydateandsectors(@RequestParam("companyc")String company 
 {
 	
 	 ModelAndView mv=new ModelAndView();
-	 
+	 String al=companyServices.CompanyList();
+	mv.addObject("companyList",al);
+		
 	 Sectors sec=sectorsservices.findByCompanySectorName(ssectors);
 	 if(companyServices.findByCompanyCodeAndSector(company, sec)!=null)
 	 {
@@ -327,12 +328,31 @@ public ModelAndView getbydateandsectors(@RequestParam("companyc")String company 
 	}
 	 else
 	 {
-		 mv.addObject("message","No company under this stock name");
+		 mv.addObject("message","No company or sector under this stock name");
 		 mv.setViewName("NewFile");
 	 }
 	 
 	 return mv;
 
+}
+
+@RequestMapping(value="getIpo",method=RequestMethod.GET)
+
+public ModelAndView getbycompay(@RequestParam("hell")String company,HttpServletRequest request)
+{
+	
+	ModelAndView mv = new ModelAndView();
+	String al=companyServices.CompanyList();
+	mv.addObject("companyList",al );
+	
+	IpoDetails ipo=iposervices.findByCompanyName(company);
+	mv.addObject("ipo",ipo);
+	List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.getFullCanvasjsChartData( );
+	mv.addObject("dataPointsList", canvasjsDataList);
+	mv.setViewName("User");
+	
+	return mv;
+	
 }
 
 }

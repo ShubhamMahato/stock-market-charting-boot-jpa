@@ -31,7 +31,7 @@ font-family:sans-serif;
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a id="sidebarA" href="ImportData.html">Import Data</a>
+                    <a id="sidebarA" href="importdata">Import Data</a>
                 </li>
                 <li>
                     <a id="sidebarA" href="openManageCompany">Manage Company</a>
@@ -62,7 +62,7 @@ font-family:sans-serif;
                         <div class="menu">
 
                               <ul>
-                                    <li><a href="ImportData.html">Import Data</a></li>
+                                    <li><a href="importdata">Import Data</a></li>
                                     <li><a href="openManageCompany">Manage Company</a></li>
                                     <li><p>Manage Exchange</p></li>
                                     <li><a href="IPO Planned.html">IPO Details</a></li>
@@ -142,6 +142,7 @@ font-family:sans-serif;
                 </div>
             </div>
         </div>
+        <p style="color:red;">${msg}</p>
 		</form:form>
 	
 			</div>

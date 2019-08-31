@@ -37,10 +37,10 @@ font-family:sans-serif;
                     <p>Import Data</p>
                 </li>
                 <li>
-                    <a id="sidebarA" href="ManageCompany.html">Manage Company</a>
+                    <a id="sidebarA" href="openManageCompany">Manage Company</a>
                 </li>
                 <li>
-                    <a id="sidebarA" href="ManageExchange.html">Manage Exchange</a>
+                    <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
                 </li>
                 <li>
                     <a id="sidebarA" href="IPO Planned.html">IPO Details</a>
@@ -66,8 +66,8 @@ font-family:sans-serif;
 
                               <ul>
                                     <li><p>Import Data</p></li>
-                                    <li><a href="ManageCompany.html">Manage Company</a></li>
-                                    <li><a href="ManageExchange.html">Manage Exchange</a></li>
+                                    <li><a href="openManageCompany">Manage Company</a></li>
+                                    <li><a href="openStockExchange">Manage Exchange</a></li>
                                     <li><a href="IPO Planned.html">IPO Details</a></li>
 									 <li><button type="button" class="btn btn-dark">Logout</button> </li>
                               </ul>

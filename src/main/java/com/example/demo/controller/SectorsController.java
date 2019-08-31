@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,12 +47,25 @@ public class SectorsController
 		else
 		{
 		ModelAndView mv=new ModelAndView();
-		List<Sectors>list=sectorservice.findAll();
-		mv.addObject("list",list);
-		mv.addObject("sector",new Sectors());
-		sectorservice.save(sector);
-		mv.setViewName("ManageSectors");
-		return mv;
+		try {
+			sectorservice.save(sector);
+			List<Sectors>list=sectorservice.findAll();
+			mv.addObject("list",list);
+			mv.addObject("sector",new Sectors());
+			mv.setViewName("ManageSectors");
+			return mv;
+	    }
+	    catch (DataIntegrityViolationException e) {
+	    	List<Sectors>list=sectorservice.findAll();
+			mv.addObject("list",list);
+			mv.addObject("msg","Data exist already");
+			mv.addObject("sector",new Sectors());
+			mv.setViewName("ManageSectors");
+			return mv;
+	    }
+		
+		
+		
 		}
 	}
 }

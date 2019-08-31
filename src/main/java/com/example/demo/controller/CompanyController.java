@@ -80,8 +80,7 @@ public class CompanyController
 			else
 			{
 				ModelAndView mv = new ModelAndView();
-				System.out.println("Stock null");
-				mv.addObject("message","Stock Exchange Doesn't If you want to add one go to Manage Exchange");
+				mv.addObject("message","Sector Doesn't If you want to add one go to Manage Sector");
 				mv.setViewName("NewFile");
 				return mv;
 			}
@@ -107,7 +106,6 @@ public class CompanyController
 		else
 		{
 			ModelAndView mv = new ModelAndView();
-			System.out.println("Stock null");
 			mv.addObject("message","Stock Exchange Doesn't If you want to add one go to Manage Exchange");
 			mv.setViewName("NewFile");
 			return mv;

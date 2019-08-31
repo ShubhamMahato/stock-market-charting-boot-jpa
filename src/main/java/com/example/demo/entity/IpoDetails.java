@@ -1,8 +1,6 @@
 package com.example.demo.entity;
 
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,38 +12,27 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="ipoDetails")
+@Table(name="ipoDetails1")
 public class IpoDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@NotBlank
-	@Column(name="companyName",unique = true)
+	@Column(name="companyName")
 	private String companyName;
 
-	@NotBlank
+
 	private String stockExchange;
 
-	@NotBlank
+	
 	private double pricePerShare;
 
-	@NotBlank
-	private double TotalShare;
+	
+	private int TotalShare;
 
-	public Company getCompany() {
-		return company;
-	}
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
-	@NotBlank
-	private Date openingDate;
-
+	
 	@NotBlank
 	private String remarks;
 
@@ -57,50 +44,67 @@ public class IpoDetails {
 	@JoinColumn
 	private Company company;
 
-	//******************************************************
-	//					!--Mapping--
-	//******************************************************
-
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
-	public void setCompanyNname(String companyName) {
+
+	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
 	public String getStockExchange() {
 		return stockExchange;
 	}
+
 	public void setStockExchange(String stockExchange) {
 		this.stockExchange = stockExchange;
 	}
+
 	public double getPricePerShare() {
 		return pricePerShare;
 	}
+
 	public void setPricePerShare(double pricePerShare) {
 		this.pricePerShare = pricePerShare;
 	}
-	public double getTotalShare() {
+
+	public int getTotalShare() {
 		return TotalShare;
 	}
-	public void setTotalShare(double totalShare) {
+
+	public void setTotalShare(int totalShare) {
 		TotalShare = totalShare;
 	}
-	public Date getOpeningDate() {
-		return openingDate;
-	}
-	public void setOpeningDate(Date openingDate) {
-		this.openingDate = openingDate;
-	}
+
 	public String getRemarks() {
 		return remarks;
 	}
+
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	//******************************************************
+	//					!--Mapping--
+	//******************************************************
+	
+	
+	
+	
 }

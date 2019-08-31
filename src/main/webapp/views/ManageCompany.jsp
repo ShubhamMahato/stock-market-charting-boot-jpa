@@ -52,7 +52,7 @@ font-family:sans-serif;
             </div>
             <ul class="list-unstyled components">
                 <li class="active">
-                    <a id="sidebarA" href="ImportData.html">Import Data</a>
+                    <a id="sidebarA" href="importdata">Import Data</a>
                 </li>
                 <li>
                    <a id="sidebarA" href="openSector">Sectors</a>
@@ -61,7 +61,7 @@ font-family:sans-serif;
                     <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
                 </li>
                 <li>
-                    <a id="sidebarA" href="IPO Planned.html">IPO Details</a>
+                    <a id="sidebarA" href="openipo">IPO Details</a>
                 </li>
 				<li><button type="button" class="btn btn-dark">Logout</button> </li>
             </ul>
@@ -86,7 +86,7 @@ font-family:sans-serif;
                                     <li><a href="importdata">Import Data</a></li>
                                     <li>   <a href="openSector">Sectors</a></li>
                                     <li><a href="openStockExchange">Manage Exchange</a></li>
-                                    <li><a href="IPO Planned.html">IPO Details</a></li>
+                                    <li><a href="openipo">IPO Details</a></li>
 									<li><button type="button" class="btn btn-dark">Logout</button> </li>
                               </ul>
                         </div>
@@ -142,28 +142,30 @@ font-family:sans-serif;
 					<p id="pid">Stock Code:</p>
                 </div>
             <div style="text-align:left" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-           		 <form:input path="companyId"  type="text" id="cid" name="cid" placeholder="id will be assigned"/><br><br>
+           		 <form:input path="companyId"  type="text" id="cid" name="cid" placeholder="id will be assigned" readonly="true" /><br><br>
            		 
-				<form:input path="companyCode"  type="text" id="ccode" name="ccode" placeholder="id will be assigned"/><br><br>
+				<form:input path="companyCode"  type="text" id="ccode" name="ccode" placeholder="Enter Code"/><br><br>
 				
-				<form:input path="companyName" value="Microsoft" type="text" id="cname" name="cname" placeholder="CompanyName"/><br><br>
+				<form:input path="companyName"  type="text" id="cname" name="cname" placeholder="CompanyName"/><br><br>
 				 
-				<form:input  path="ceo" type="text" value="satya nadela" id="ceoname" name="ceoname" placeholder="CeoName"/>
+				<form:input  path="ceo" type="text"  id="ceoname" name="ceoname" placeholder="CeoName"/>
 				 <br><br>
 				 
-				<form:input  path="boardOfDirectors" value="ShubhamMahato" id="bodname"  type="text" name="bodname" placeholder="BodName"/>
-				 <br><br>
-				
-				<form:input  path="turnover"  type="text" value="6" id="turnover" name="turnover" placeholder="Turnover"/>
+				<form:input  path="boardOfDirectors"  id="bodname"  type="text" name="bodname" placeholder="BodName"/>
 				 <br><br>
 				
-				<form:input  path="breifWriteUp"  type="text" value="Hahaha" id="brief" name="Brief" placeholder="Brief"/>
+				<form:input  path="turnover"  type="text" id="turnover" name="turnover" placeholder="Turnover"/>
+				 <br><br>
+				
+				<form:input  path="breifWriteUp"  type="text"  id="brief" name="Brief" placeholder="Brief"/>
 				 <br><br>
 				 
-				<form:input  path="sectorId"  type="text" value="3" name="sector" id="sector" placeholder="Sector"/>
+				<form:input  path="sectorId"  type="text" name="sector" id="sector" placeholder="Sector"/>
+				<p style="color:red;">${smsg}</p>
 				 <br><br>
 				 
-				<form:input  path="stockExchangeId"  type="text" value="3" name="stockExchangeCompany" id="stockcode" placeholder="Stock Code"/>
+				<form:input  path="stockExchangeId"  type="text"  name="stockExchangeCompany" id="stockcode" placeholder="Stock Code"/>
+				<p style="color:red;">${cmsg}</p>
 				 <br><br>
 				<br><br>
 				<input type="submit" name="action" value="save or update" />

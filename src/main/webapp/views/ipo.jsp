@@ -6,12 +6,25 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Manage Company</title>
+<title>Ipo</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
 	<link rel="stylesheet" type="text/css" href="/css/ManageExchangeStyle.css">
+	 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+	<script type="text/javascript">
+	$( function() {
+        			$( "#cid" ).autocomplete({
+        				source:${StringList},
+        				minLength:1
+        			});
+        		});
+	</script>
 	<style>
 .error{
 color:red;
@@ -40,7 +53,7 @@ font-family:sans-serif;
                     <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
                 </li>
                 <li>
-                    <a id="sidebarA" href="IPO Planned.html">IPO Details</a>
+                    <p>IPO Details</p>
                 </li>
 				<li><button type="button" class="btn btn-dark">Logout</button> </li>
             </ul>
@@ -65,7 +78,7 @@ font-family:sans-serif;
                                     <li><a href="importdata">Import Data</a></li>
                                     <li><a href="openManageCompany">Manage Company</a></li>
                                     <li><a href="openStockExchange">Manage Exchange</a></li>
-                                    <li><a href="IPO Planned.html">IPO Details</a></li>
+                                    <li><p>IPO Details</p></li>
 									<li><button type="button" class="btn btn-dark">Logout</button> </li>
                               </ul>
                         </div>
@@ -101,22 +114,31 @@ font-family:sans-serif;
 	  <div id="container">
 	  <div class="row">
 		<div id ="left-import-cell" class="col-sm-12 col-md-6">
-		<h3>Register New Sector</h3>
+		<h3>Register New Ipo</h3>
 	<hr/>
 	
 	
-	<form:form action="saveSectors"  method="POST"  modelAttribute="sector">
+	<form:form action="saveIpo"  method="POST"  modelAttribute="ipo">
 	<div class="container-fluid"> 
             <div class="row" class="i-am-centered">
                 <div style="text-align:right" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <p id="pid">Sector Name:</p>
-                 <p id="pid">Brief:</p>
+                <p id="pid">Company Name:</p>
+                 <p id="pid">Stock Exchnage</p>
+                 <p id="pid">Price per share</p>
+                 <p id="pid">Total Share</p>
+                 <p id="pid">Remarks</p>
                 </div>
             <div style="text-align:left" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-           		 <form:input path="companySectorName"  type="text" id="cid" name="cid" placeholder="Sector Name"/><br><br>
+           		<form:input path="companyName"  type="text" id="cid" name="cid" placeholder="company Name"/><br><br>
            		 
-				<form:input path="sectorsBrief"  type="text" id="ccode" name="ccode" placeholder="Brief"/><br><br>
-			
+				<form:input path="stockExchange"  type="text" id="ccode" name="ccode" placeholder="exchange" readonly="true"/><br><br>
+				
+				<form:input path="pricePerShare"  type="text" id="pcode" name="pcode" placeholder="Price per share"/><br><br>
+				
+				<form:input path="TotalShare"  type="text" id="tcode" name="tcode" placeholder="Total share"/><br><br>
+				
+				<form:input path="remarks"  type="text" id="rcode" name="rcode" placeholder="Remarks"/><br><br>
+				
 				<br><br>
 				<input type="submit" name="action" value="save or update" />
 				
@@ -126,11 +148,16 @@ font-family:sans-serif;
                 
                 
                  <div style="text-align:center" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                 <form:errors path="companySectorName" cssClass="error"></form:errors>
+                 <form:errors path="companyName" cssClass="error"></form:errors>
 				 <br><br>
-				<form:errors path="sectorsBrief" cssClass="error"></form:errors>
+				<form:errors path="stockExchange" cssClass="error"></form:errors>
 				 <br><br>
-				
+				 <form:errors path="pricePerShare" cssClass="error"></form:errors>
+				 <br><br>
+				<form:errors path="TotalShare" cssClass="error"></form:errors>
+				 <br><br>
+				<form:errors path="remarks" cssClass="error"></form:errors>
+				 <br><br>
                 </div>
             </div>
         </div>
@@ -138,20 +165,24 @@ font-family:sans-serif;
 	
 			</div>
 			<div id ="left-import-cell" class="col-sm-12 col-md-6">
-			<h3>List all Sectors</h3>
+			<h3>List all Ipo</h3>
 	<hr/>
-	<table class="table table-hover table-dark">
+	 <table class="table table-hover table-dark">
   <thead>
     <tr>
-      <th scope="col">sectorName</th>
-      <th scope="col">Brief</th>
+      <th scope="col">Company Name</th>
+      <th scope="col">Exchange</th>
+      <th scope="col">Price per share</th>
+        <th scope="col">Remarks</th>
     </tr>
   </thead>
   <tbody>
   <j:forEach var="c" items="${list}">
     <tr>
-      	 <td>${c.companySectorName}</td>
-      	 <td>${c.sectorsBrief}</td>
+      	 <td>${c.companyName}</td>
+      	 <td>${c.stockExchange}</td>
+      	  <td>${c.pricePerShare}</td>
+      	  <td>${c.remarks}</td>
     </tr>
     </j:forEach>
   </tbody>
