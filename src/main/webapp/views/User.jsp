@@ -47,6 +47,12 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		title: "Price (in billion INR)",
 		suffix: " INR"
 	},
+	toolTip: {
+		shared: true
+	},
+	legend: {
+		cursor: "pointer",
+	},
 	data: [
 {
 		
@@ -54,6 +60,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
+		name: "Company 1",
 		dataPoints: dps[0]
 	},
 {
@@ -62,6 +69,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
+		name: "Company 2",
 		dataPoints: dps[1]
 	},
 {
@@ -70,6 +78,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
+		name: "Company 3",
 		dataPoints: dps[2]
 	},
 {
@@ -78,6 +87,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
+		name: "Company 4",
 		dataPoints: dps[3]
 	},
 {
@@ -86,6 +96,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		xValueType: "dateTime",
 		xValueFormatString: "MMM",
 		yValueFormatString: "#,##0 INR",
+		name: "Company 5",
 		dataPoints: dps[4]
 	}]
 });
@@ -237,7 +248,9 @@ document.write("${datatypeset}");
 <br>
 
 <div>
-	<h2>Search Ipo</h2>
+	<h2 style="text-align:center;">Search Ipo</h2>
+	<br>
+	<br>
 	<div class="row">
 			<form:form  action="getIpo"  method="GET" >
 				<div style="text-align:right;" class="col-sm-6 col-md-6 col-xs-6 col-lg-6">

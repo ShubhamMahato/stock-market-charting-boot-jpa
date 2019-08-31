@@ -169,7 +169,7 @@ public class AdminController
 		StockPriceDetail stockPriceDetails = new StockPriceDetail();
 
 		if (index == 1){
-			String objectCompanyCode = XSSFrow.getCell(0).getStringCellValue();
+			//String objectCompanyCode = XSSFrow.getCell(0).getStringCellValue();
 			int objectStockExchange = (int) XSSFrow.getCell(1).getNumericCellValue();
 			float objectCurrentPrice = (float) XSSFrow.getCell(2).getNumericCellValue();
 			Date objectDate = XSSFrow.getCell(3).getDateCellValue();
@@ -177,9 +177,9 @@ public class AdminController
 			
 			
 			
-			/* DataFormatter formatter0 = new DataFormatter(); 
+			 DataFormatter formatter0 = new DataFormatter(); 
 			 Cell cell0 = XSSFrow.getCell(0);
-			 String ss0 = formatter0.formatCellValue(cell0); */
+			 String ss0 = formatter0.formatCellValue(cell0); 
 			
 			//////////time column//////////////////////
 			 DataFormatter formatter = new DataFormatter(); 
@@ -191,13 +191,13 @@ public class AdminController
 			 
 			  
 			
-			String data = dateToString(objectDate)+objectCompanyCode+ss;
+			String data = dateToString(objectDate)+ss0+ss;
 			//System.out.println(data+"hhh");
-			if (checkDublicateData(dublicateDataList, data)&&(checkCompany(objectCompanyCode)))
+			if (checkDublicateData(dublicateDataList, data)&&(checkCompany(ss0)))
 			{
 				
 				dateRange(objectDate);
-				stockPriceDetails.setCompanyCode(objectCompanyCode);
+				stockPriceDetails.setCompanyCode(ss0);
 				stockPriceDetails.setStockExchange(objectStockExchange);
 				stockPriceDetails.setCurrentPrice(objectCurrentPrice);
 				stockPriceDetails.setDate(objectDate);

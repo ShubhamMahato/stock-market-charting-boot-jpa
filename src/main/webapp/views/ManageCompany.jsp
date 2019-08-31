@@ -63,7 +63,7 @@ font-family:sans-serif;
                 <li>
                     <a id="sidebarA" href="openipo">IPO Details</a>
                 </li>
-				<li><button type="button" class="btn btn-dark">Logout</button> </li>
+				<li><a href="/"><button type="button" class="btn btn-dark">Logout</button></a> </li>
             </ul>
       </nav>
       <div class="wrapper">
@@ -71,7 +71,6 @@ font-family:sans-serif;
 			
 
                   <nav id="header1">
-                    </button>
                         <div class="menu-icon">
                               <i class="fa fa-bars fa-2x"></i>
                         </div>
@@ -87,13 +86,13 @@ font-family:sans-serif;
                                     <li>   <a href="openSector">Sectors</a></li>
                                     <li><a href="openStockExchange">Manage Exchange</a></li>
                                     <li><a href="openipo">IPO Details</a></li>
-									<li><button type="button" class="btn btn-dark">Logout</button> </li>
+									<li><a href="/"><button type="button" class="btn btn-dark">Logout</button></a> </li>
                               </ul>
                         </div>
                   </nav>
 
             </header>
-
+</div>
            
 
 
@@ -161,11 +160,11 @@ font-family:sans-serif;
 				 <br><br>
 				 
 				<form:input  path="sectorId"  type="text" name="sector" id="sector" placeholder="Sector"/>
-				<p style="color:red;">${smsg}</p>
+				
 				 <br><br>
 				 
 				<form:input  path="stockExchangeId"  type="text"  name="stockExchangeCompany" id="stockcode" placeholder="Stock Code"/>
-				<p style="color:red;">${cmsg}</p>
+			
 				 <br><br>
 				<br><br>
 				<input type="submit" name="action" value="save or update" />

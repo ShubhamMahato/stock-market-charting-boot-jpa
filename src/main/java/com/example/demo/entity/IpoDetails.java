@@ -30,15 +30,11 @@ public class IpoDetails {
 	private double pricePerShare;
 
 	
-	private int TotalShare;
+	private int totalShare;
 
 	
 	@NotBlank
 	private String remarks;
-
-	//******************************************************
-	//					Mapping
-	//******************************************************
 
 	@OneToOne
 	@JoinColumn
@@ -76,12 +72,14 @@ public class IpoDetails {
 		this.pricePerShare = pricePerShare;
 	}
 
+	
+
 	public int getTotalShare() {
-		return TotalShare;
+		return totalShare;
 	}
 
 	public void setTotalShare(int totalShare) {
-		TotalShare = totalShare;
+		this.totalShare = totalShare;
 	}
 
 	public String getRemarks() {
@@ -100,10 +98,6 @@ public class IpoDetails {
 		this.company = company;
 	}
 
-	//******************************************************
-	//					!--Mapping--
-	//******************************************************
-	
 	
 	
 	

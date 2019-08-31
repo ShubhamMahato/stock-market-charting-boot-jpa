@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Company;
 import com.example.demo.entity.Stock;
-import com.example.demo.services.CanvasjsChartService;
 import com.example.demo.services.CompanyService;
 import com.example.demo.services.StockPriceServices;
 import com.example.demo.services.StockService;
@@ -24,8 +20,6 @@ import com.example.demo.services.StockService;
 public class HomeController 
 {
 	
-	@Autowired
-	private CanvasjsChartService canvasjsChartService;
 	
 	@Autowired         
 	private CompanyService companyServices;

@@ -59,6 +59,7 @@ public class UserController {
 	
 	
 	
+	
 	@RequestMapping("/saveUser")
 	public ModelAndView adduser(@Valid @ModelAttribute("user") User user,BindingResult result,HttpServletRequest request)
 	{
@@ -66,7 +67,6 @@ public class UserController {
 		{
 			ModelAndView mv=new ModelAndView();
 			mv.setViewName("UserLoginoreRegister");
-			System.out.println("inthe result error    lmpgpdfsjngpifrngpinergpm");
 			return mv;
 		}
 		if(!result.hasErrors()) {
@@ -189,7 +189,7 @@ public class UserController {
 	 {
 		 ModelAndView mv=new ModelAndView();
 		 String al=companyServices.CompanyList();
-		mv.addObject("companyList",al );
+		 mv.addObject("companyList",al );
 		 String s="";
 		 String datatypeset="[";
 		 List<List<Map<Object, Object>>> canvasjsDataList =stockpriceservice.findByDate(companyCode,startdate, enddate);

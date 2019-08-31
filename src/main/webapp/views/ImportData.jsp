@@ -43,9 +43,9 @@ font-family:sans-serif;
                     <a id="sidebarA" href="openStockExchange">Manage Exchange</a>
                 </li>
                 <li>
-                    <a id="sidebarA" href="IPO Planned.html">IPO Details</a>
+                    <a id="sidebarA" href="openipo">IPO Details</a>
                 </li>
-				<li><button type="button" class="btn btn-dark">Logout</button> </li>
+				<li><a href="/"><button type="button" class="btn btn-dark">Logout</button></a> </li>
             </ul>
       </nav>
       <div class="wrapper">
@@ -53,7 +53,6 @@ font-family:sans-serif;
 			
 
                   <nav id="header1">
-                    </button>
                         <div class="menu-icon">
                               <i class="fa fa-bars fa-2x"></i>
                         </div>
@@ -68,8 +67,8 @@ font-family:sans-serif;
                                     <li><p>Import Data</p></li>
                                     <li><a href="openManageCompany">Manage Company</a></li>
                                     <li><a href="openStockExchange">Manage Exchange</a></li>
-                                    <li><a href="IPO Planned.html">IPO Details</a></li>
-									 <li><button type="button" class="btn btn-dark">Logout</button> </li>
+                                    <li><a href="openipo">IPO Details</a></li>
+									<li><a href="/"><button type="button" class="btn btn-dark">Logout</button></a> </li>
                               </ul>
                         </div>
                   </nav>
